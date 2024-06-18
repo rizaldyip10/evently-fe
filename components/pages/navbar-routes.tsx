@@ -25,9 +25,13 @@ const categories = [
     },
 ]
 
-const NavbarRoutes = () => {
+interface NavbarRoutesProps {
+    style: string
+}
+
+const NavbarRoutes: React.FC<NavbarRoutesProps> = ({ style }) => {
   return (
-    <div className='flex justify-center items-center gap-8'>
+    <div className={style}>
         {
             categories.map((item, index) => (
                 <NavbarItems label={item.name} key={index} href={item.href} variant="link" textSize='text-lg text-default font-normal' />
