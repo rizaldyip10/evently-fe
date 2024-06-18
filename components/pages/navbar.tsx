@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 import NavbarRoutes from './navbar-routes'
 import AuthBtn from './auth-btn'
-import MobileMenuBtn from './mobile-menu-btn'
+import MobileMenu from './mobile-menu'
 
 const Navbar: React.FC = () => {
   return (
@@ -10,13 +10,15 @@ const Navbar: React.FC = () => {
       <Link href="/">
         <h1 className='text-primary-default font-bold text-2xl'>Evently</h1>
       </Link>
-      <div className='hidden md:block'>
+      <div className='hidden lg:block'>
         <NavbarRoutes style='flex justify-center items-center gap-8' />
       </div>
-      <div className='hidden md:block'>
+      <div className='hidden lg:block'>
         <AuthBtn containerStyle='flex items-center justify-between gap-8 flex-row' />
       </div>
-      <MobileMenuBtn />
+      <div className='lg:hidden flex items-center'>
+        <MobileMenu />
+      </div>
     </div>
   )
 }
