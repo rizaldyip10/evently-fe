@@ -20,7 +20,7 @@ const DatePicker: React.FC = () => {
                 }
             </Button>
         </PopoverTrigger>
-        <PopoverContent className=''>
+        <PopoverContent className='w-auto p-0 bg-[#fff] -translate-x-[18%] -translate-y-1/2 md:translate-x-0 md:translate-y-0'>
             <Calendar
                 mode='single'
                 selected={date}
