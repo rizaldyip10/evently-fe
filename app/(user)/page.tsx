@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main className="w-full">
       <Hero />
-      Home page
+      {/* Home page */}
     </main>
   );
 }

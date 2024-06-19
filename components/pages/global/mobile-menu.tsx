@@ -2,7 +2,7 @@ import React from 'react'
 import { Menu } from 'lucide-react'
 import NavbarRoutes from './navbar-routes'
 import AuthBtnMobile from './auth-btn-mobile'
-import { Sheet, SheetContent, SheetFooter, SheetTrigger } from '../ui/sheet'
+import { Sheet, SheetContent, SheetFooter, SheetTrigger } from '../../ui/sheet'
 
 const MobileMenu: React.FC = () => {
     return (
