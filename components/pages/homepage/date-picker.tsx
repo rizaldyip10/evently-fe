@@ -14,9 +14,9 @@ const DatePicker: React.FC = () => {
     <Popover>
         <PopoverTrigger asChild>
             <Button variant="ghost" className='text-[10px] text-default flex items-center gap-1'>
-                <CalendarIcon className='text-light w-3 h-3' />
+                <CalendarIcon className='text-light w-3 h-3 md:w-5 md:h-5' />
                 { date ? format(date, "PPP") : 
-                    <span className='text-[10px] text-default'>Select date</span> 
+                    <span className='text-[10px] text-default md:text-base'>Select date</span> 
                 }
             </Button>
         </PopoverTrigger>

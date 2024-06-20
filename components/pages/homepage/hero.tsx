@@ -14,7 +14,7 @@ import EventSearch from './event-search'
 
 const Hero: React.FC = () => {
   return (
-    <div className='w-full h-64 md:h-96 flex flex-col justify-between relative border-b border-default'>
+    <div className='w-full h-64 md:h-96 flex flex-col justify-between relative'>
       <div className='flex w-full justify-between px-5'>
         <Image src={lamp} alt='' className='hidden md:block' />
         <Image src={lamp} alt='' className='hidden md:block' />
@@ -38,7 +38,7 @@ const Hero: React.FC = () => {
         <Image src={image1mobile} alt='' className='md:hidden' />
         <Image src={image6mobile} alt='' className='md:hidden' />
       </div>
-      <div className='absolute w-full bottom-0 translate-y-1/2 px-5'>
+      <div className='absolute w-full bottom-0 translate-y-1/2 px-5 lg:px-56'>
         <EventSearch />
       </div>
     </div>
