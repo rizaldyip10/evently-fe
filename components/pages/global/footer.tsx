@@ -2,6 +2,7 @@ import { Separator } from '@/components/ui/separator'
 import React from 'react'
 import FooterMenuMobile from './footer-menu-mobile'
 import FooterMenu from './footer-menu'
+import FooterCopyRight from './footer-copyright'
 
 const menus = [
   {
@@ -56,9 +57,9 @@ const Footer: React.FC = () => {
           <FooterMenuMobile menu={menus} />
           <FooterMenu menu={menus} />
         </div>
-        <Separator />
-        <div>
-
+        <Separator className='my-10 bg-second-lightest' />
+        <div className='w-full p-5 lg:py-14 lg:px-32 lg:'>
+            <FooterCopyRight />
         </div>
     </div>
   )
