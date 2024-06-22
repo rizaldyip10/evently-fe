@@ -23,22 +23,22 @@ const Hero: React.FC = () => {
         <Image src={lampMobile} alt='' className='md:hidden' />
       </div>
       <div className='w-full flex justify-center text-center px-5'>
-        <h1 className='text-3xl font-bold font-cabinet-grotesk text-primary-default lg:text-6xl'>
+        <h1 className='text-3xl lg:text-5xl font-bold font-cabinet-grotesk text-primary-default xl:text-6xl'>
           Exclusive events, priceless moments
         </h1>
       </div>
-      <div className='w-full flex justify-center lg:justify-between items-end'>
+      <div className='w-full flex justify-center xl:justify-between items-end'>
         <Image src={image1} alt='' className='hidden md:block' />
-        <Image src={image2} alt='' className='hidden lg:block' />
-        <Image src={image3} alt='' className='hidden lg:block' />
-        <Image src={image4} alt='' className='hidden lg:block' />
-        <Image src={image5} alt='' className='hidden lg:block' />
+        <Image src={image2} alt='' className='hidden xl:block' />
+        <Image src={image3} alt='' className='hidden xl:block' />
+        <Image src={image4} alt='' className='hidden xl:block' />
+        <Image src={image5} alt='' className='hidden xl:block' />
         <Image src={image6} alt='' className='hidden md:block' />
 
         <Image src={image1mobile} alt='' className='md:hidden' />
         <Image src={image6mobile} alt='' className='md:hidden' />
       </div>
-      <div className='absolute w-full bottom-0 translate-y-1/2 px-5 lg:px-56'>
+      <div className='absolute w-full bottom-0 translate-y-1/2 px-5 lg:px-28 xl:px-56'>
         <EventSearch />
       </div>
     </div>

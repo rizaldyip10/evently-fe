@@ -1,3 +1,4 @@
+import Footer from '@/components/pages/global/footer'
 import Navbar from '@/components/pages/global/navbar'
 import React from 'react'
 
@@ -10,7 +11,7 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
       <div className='w-full pt-16 md:pt-20'>
         { children }
       </div>
-      {/* Footer di sini */}
+      <Footer />
     </div>
   )
 }

@@ -12,7 +12,7 @@ const EventCard: React.FC<EventCardProps> = ({ classname, image }) => {
   return (
     <div className={cn("w-full flex flex-col justify-center border border-second-lightest rounded-[8px]")}>
         <div className='w-full'>
-          <Image alt='' src={eventImage} className='w-full h-44 object-cover' />
+          <Image alt='' src={eventImage} className='w-full h-32 object-cover' />
         </div>
         <div className='w-full flex p-5 justify-center gap-4'>
           <div className='flex flex-col items-center'>
@@ -20,10 +20,10 @@ const EventCard: React.FC<EventCardProps> = ({ classname, image }) => {
             <h1 className='font-bold text-2xl text-default'>22</h1>
           </div>
           <div className='flex flex-col'>
-            <h1 className='font-semibold text-xl text-default whitespace-nowrap overflow-hidden text-ellipsis max-w-[300px]'>
+            <h1 className='font-semibold text-xl text-default '>
               Drive in Senja: Back to The Future
             </h1>
-            <p className='font-semibold text-base text-light whitespace-nowrap overflow-hidden text-ellipsis max-w-[300px]'>
+            <p className='font-semibold text-base text-light '>
               Parkiran Utama Mall @ Alam Sutra
             </p>
             <p className='text-base text-light'>20:00 - 21:56</p>
