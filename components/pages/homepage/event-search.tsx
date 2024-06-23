@@ -16,28 +16,45 @@ const EventSearch: React.FC = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  const createQueryString = useCallback((name: string, value: string) => {
-    const params = new URLSearchParams(searchParams.toString())
-    if (value.includes(" ")) {
-      value.replace(" ", "+")
-    }
-    params.set(name, value)
+  // const createQueryString = useCallback((name: string, value: string) => {
+  //   const params = new URLSearchParams(searchParams.toString())
+  //   if (value.includes(" ")) {
+  //     value.replace(" ", "+")
+  //   }
+  //   params.set(name, value)
 
-    return params.toString()
-  }, [searchParams])
+  //   return params.toString()
+  // }, [searchParams])
 
-  let searchQuery: string = createQueryString("event", search) + "&" + createQueryString("date", date ? date.toDateString() : '')
+  // let searchQuery: string = createQueryString("event", search) + "&" + createQueryString("date", date ? date.toDateString() : '')
 
-  // if (search && date) {
-  //   searchQuery = createQueryString("event", search) + "&" + createQueryString("date", date.toDateString())
-  // } else if (search) {
-  //   searchQuery = createQueryString("event", search)
-  // } else if (date) {
-  //   createQueryString("date", date.toDateString())
-  // }
+  // // if (search && date) {
+  // //   searchQuery = createQueryString("event", search) + "&" + createQueryString("date", date.toDateString())
+  // // } else if (search) {
+  // //   searchQuery = createQueryString("event", search)
+  // // } else if (date) {
+  // //   createQueryString("date", date.toDateString())
+  // // }
 
   const onSearch = () => {
-    router.push(`/search?${searchQuery}`)
+    let params = new URLSearchParams(searchParams.toString())
+
+    if (search.length > 0) {
+      if (search.includes(" ")) {
+        params.set('event', search.replace(" ", "+"))
+      }
+      params.set('event', search)
+    } else {
+      params.delete('event')
+    }
+
+    if (date && date.toDateString().length > 0) {
+      params.set('date', date.toDateString())
+    } else {
+      params.delete('date')
+    }
+
+    router.replace(`/search?${params.toString()}`)
   }
 
   return (
@@ -52,7 +69,7 @@ const EventSearch: React.FC = () => {
       <Separator orientation='vertical' className='bg-second-lightest h-5 md:h-8' />
       <div className='w-1/2 flex items-center pr-5'>
         <DatePicker date={date} setDate={setDate} />
-        <Button 
+        <Button
           className={cn('w-5 h-5 md:w-10 lg:w-24 md:h-10 bg-primary-default text-[#fff] rounded-[2px] ml-auto p-0')}
           onClick={onSearch}
         >
