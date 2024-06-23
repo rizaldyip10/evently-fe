@@ -11,10 +11,13 @@
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.0",
-    "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-checkbox": "^1.1.0",
+    "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-popover": "^1.0.7",
+    "@radix-ui/react-radio-group": "^1.2.0",
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-switch": "^1.1.0",
     "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -28,6 +31,7 @@
     "react-dom": "^18",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
+    "vaul": "^0.9.1",
     "yup": "^1.4.0"
   },
   "devDependencies": {

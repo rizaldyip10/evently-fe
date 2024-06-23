@@ -18,7 +18,7 @@ interface FooterMenuMobileProps {
 
 const FooterMenuMobile: React.FC<FooterMenuMobileProps> = ({ menu }) => {
   return (
-    <div className='w-full lg:hidden mt-10'>
+    <div className='w-full lg:hidden'>
         {
             menu.map((item, index) => (
                 <Accordion key={index} collapsible type='single' className='w-full text-[#fff]'>
