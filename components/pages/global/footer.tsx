@@ -58,7 +58,7 @@ const Footer: React.FC = () => {
           <FooterMenu menu={menus} />
         </div>
         <Separator className='my-10 bg-second-lightest' />
-        <div className='w-full px-5 py-1 lg:py-3 lg:px-32 lg:'>
+        <div className='w-full px-5 py-1 lg:py-3 lg:px-32'>
             <FooterCopyRight />
         </div>
     </div>
