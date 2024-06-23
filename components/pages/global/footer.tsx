@@ -52,7 +52,7 @@ const menus = [
 const Footer: React.FC = () => {
   return (
     <div className='w-full flex flex-col bg-primary-default'>
-        <div className='w-full flex flex-col lg:flex-row p-5 lg:py-14 lg:px-32 lg: gap-16'>
+        <div className='w-full flex flex-col lg:flex-row p-5 lg:py-14 lg:px-32 gap-10 lg:gap-16'>
           <h1 className='text-[#fff] font-bold text-3xl'>Evently</h1>
           <FooterMenuMobile menu={menus} />
           <FooterMenu menu={menus} />

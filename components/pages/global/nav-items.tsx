@@ -23,7 +23,7 @@ const NavbarItems: React.FC<NavbarItemsProps> = ({ href, label, variant, textSiz
     };
 
   return (
-    <Button onClick={onClick} variant={variant} className={cn("hover:text-primary-default hover:font-semibold", isActive ? 'border-b border-primary-default' : '')}>
+    <Button onClick={onClick} variant={variant} className={cn("hover:text-primary-default hover:font-semibold", isActive ? 'lg:border-b lg:border-primary-default' : '')}>
         <p className={textSize}>{ label }</p>
     </Button>
   )

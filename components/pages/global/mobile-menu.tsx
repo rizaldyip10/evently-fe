@@ -13,7 +13,7 @@ const MobileMenu: React.FC = () => {
             <SheetContent className='bg-primary-lightest w-full md:w-1/2'>
                 <NavbarRoutes style='flex justify-center items-start flex-col mt-10' />
                 <SheetFooter className='mt-5'>
-                    <AuthBtnMobile containerStyle='flex items-center justify-between gap-2 flex-col' />
+                    <AuthBtnMobile containerStyle='flex items-center justify-between gap-2 flex-col w-full' />
                 </SheetFooter>
             </SheetContent>
         </Sheet>

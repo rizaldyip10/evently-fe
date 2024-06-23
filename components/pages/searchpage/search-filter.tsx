@@ -55,15 +55,6 @@ const SearchFilter = () => {
     const pathname = usePathname()
     const router = useRouter()
 
-    // const createMultipleValueQueryString = useCallback((name: string, value: string[]) => {
-    //     const params = new URLSearchParams(searchParams.toString())
-    //     let stringValue: string = value.length > 1 ? value.join("%") : value[0]
-    //     params.set(name, stringValue)
-    //     return params.toString()
-    //   }, [searchParams])
-
-    // const filterQuery: string = `${createMultipleValueQueryString("category", searchedCategory)}&${createMultipleValueQueryString("location", searchedLocation)}`
-
     const onFilterHandle = () => {
         let params = new URLSearchParams(searchParams.toString())
 
@@ -83,13 +74,9 @@ const SearchFilter = () => {
     }
     
     return (
-        <div className='w-full flex flex-col pl-16 pr-5'>
+        <div className='w-full flex flex-col pl-8 lg:pl-16 pr-5'>
             <div className='w-full'>
                 <h1 className='text-xl text-default font-semibold font-general-sans'>Filters</h1>
-            </div>
-            <Separator className='my-3 bg-second-lightest' />
-            <div className='flex flex-col gap-4 my-2'>
-                <SwitchLabel name='Online' value='online' />
             </div>
             <Separator className='my-3 bg-second-lightest' />
             <div className='flex flex-col gap-4'>
@@ -121,7 +108,7 @@ const SearchFilter = () => {
                     }
                 </div>
             </div>
-            <Button className='w-full bg-primary-default text-[#fff] mt-5 rounded-[2px]' onClick={onFilterHandle}>
+            <Button className='w-full bg-primary-default text-[#fff] mt-5 rounded-[2px] hover:bg-primary-lightest hover:text-primary-default' onClick={onFilterHandle}>
                 Apply Filter
             </Button>
         </div>

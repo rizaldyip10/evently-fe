@@ -70,10 +70,10 @@ const EventSearch: React.FC = () => {
       <div className='w-1/2 flex items-center pr-5'>
         <DatePicker date={date} setDate={setDate} />
         <Button
-          className={cn('w-5 h-5 md:w-10 lg:w-24 md:h-10 bg-primary-default text-[#fff] rounded-[2px] ml-auto p-0')}
+          className={cn('w-5 h-5 md:w-10 lg:w-24 md:h-10 bg-primary-default text-[#fff] rounded-[2px] ml-auto p-0 hover:bg-primary-lightest hover:text-primary-default')}
           onClick={onSearch}
         >
-          <Image src={searchIcon} alt='' className='w-3 h-3 md:w-5 md:h-5 object-cover' />
+          <Image src={searchIcon} alt='' className='w-3 h-3 md:w-5 md:h-5 hover:text-primary-default object-cover' />
           <p className='hidden lg:block text-sm ml-1'>Search</p>
         </Button>
       </div>
