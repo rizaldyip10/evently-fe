@@ -4,24 +4,20 @@ import NavbarItems from './nav-items'
 
 const categories = [
     {
-        name: "Concerts",
-        href: "/concerts"
+        name: "Home",
+        href: "/"
     },
     {
-        name: "Arts",
-        href: "/arts"
+        name: "Events",
+        href: "/search"
     },
     {
-        name: "Conferences",
-        href: "/conference"
+        name: "About Us",
+        href: "/about-us"
     },
     {
-        name: "Movies",
-        href: "/movies"
-    },
-    {
-        name: "International",
-        href: "/international"
+        name: "Contact Us",
+        href: "/contact"
     },
 ]
 
@@ -34,7 +30,7 @@ const NavbarRoutes: React.FC<NavbarRoutesProps> = ({ style }) => {
     <div className={style}>
         {
             categories.map((item, index) => (
-                <NavbarItems label={item.name} key={index} href={item.href} variant="link" textSize='text-lg text-default font-normal' />
+                <NavbarItems label={item.name} key={index} href={item.href} variant="ghost" textSize='text-lg text-default font-normal' />
             ))
         }
     </div>

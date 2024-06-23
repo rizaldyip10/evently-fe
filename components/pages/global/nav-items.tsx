@@ -1,7 +1,8 @@
 "use client"
 
 import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
+import { cn } from '@/lib/utils';
+import { usePathname, useRouter } from 'next/navigation';
 import React from 'react'
 
 interface NavbarItemsProps {
@@ -12,14 +13,17 @@ interface NavbarItemsProps {
 }
 
 const NavbarItems: React.FC<NavbarItemsProps> = ({ href, label, variant, textSize }) => {
-    const router = useRouter();
+    const router = useRouter()
+    const pathname = usePathname()
 
+    const isActive = pathname == href
+    
     const onClick = () => {
         router.push(href)
     };
 
   return (
-    <Button onClick={onClick} variant={variant}>
+    <Button onClick={onClick} variant={variant} className={cn("hover:text-primary-default hover:font-semibold", isActive ? 'border-b border-primary-default' : '')}>
         <p className={textSize}>{ label }</p>
     </Button>
   )
