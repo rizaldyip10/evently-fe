@@ -8,10 +8,7 @@ import loginasset from "@/assets/image/login-assets.svg";
 import singupassetweb from "@/assets/image/signup-assets-web.svg";
 import { Form, Formik } from "formik";
 import InputField from '@/components/page/global/inputfield';
-<<<<<<< HEAD
 import RegisterDialog from '@/components/page/global/RegisterDialog';
-=======
->>>>>>> ed73a391fd4f0f590ce48f4e745a861f9df605ff
 
 const RegisterPage = () => {
 
@@ -84,19 +81,7 @@ const RegisterPage = () => {
                   type="password"
                   placeholder="Input your password"
                 />
-<<<<<<< HEAD
-
                 <RegisterDialog />
-                
-=======
-                <Button
-                  className="bg-primary-default hover:bg-primary-light w-full lg:w-full text-primary-white py-4 rounded-[4px]"
-                  type="submit"
-                >
-                  Signup
-                </Button>
-
->>>>>>> ed73a391fd4f0f590ce48f4e745a861f9df605ff
                 <p className="text-slate-400 text-sm">Already have an account? <button className="text-primary-default font-medium">Login</button></p>
               </Form>
             )}
