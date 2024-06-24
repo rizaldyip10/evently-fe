@@ -5,3 +5,20 @@
 @import url('https://fonts.cdnfonts.com/css/cabinet-grotesk');
 @import url('https://fonts.cdnfonts.com/css/general-sans');
 
+html,
+body,
+:root {
+    height: 100%;
+}
+
+@layer utilities {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+   /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+  }
+  }
