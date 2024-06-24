@@ -5,7 +5,7 @@ import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { cn } from '@/lib/utils'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DatePicker from './date-picker'
 import searchIcon from '@/assets/icons/icons8-search-50.png'
 import Image from 'next/image'
@@ -41,7 +41,6 @@ const EventSearch: React.FC = () => {
 
     router.replace(`/search?${params.toString()}`)
   }
-
 
   useEffect(() => {
     if (pathname == "/search") {
