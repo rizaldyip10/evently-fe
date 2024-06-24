@@ -1,78 +1,68 @@
 "use client"
 
 import { Separator } from '@/components/ui/separator'
-import React, { useCallback, useState } from 'react'
-import CheckLabel from '../global/check-label'
-import SwitchLabel from '../global/switch-label'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { Button } from '@/components/ui/button'
+import React, { useEffect, useState } from 'react'
+import CheckLabel from '../global/check-label'
+import useDebounce from '@/hooks/useDebounce'
 
 const categories = [
-    {
-        name: "Concerts"
-    },
-    {
-        name: "Arts",
-    },
-    {
-        name: "Conferences",
-    },
-    {
-        name: "Movies",
-    },
-    {
-        name: "International",
-    },
+    { name: "Concerts", value: "concert" },
+    { name: "Arts", value: "art" },
+    { name: "Conferences", value: "conference" },
+    { name: "Movies", value: "movie" },
+    { name: "International", value: "international" },
 ]
 
 const locations = [
-    {
-        name: "Jakarta",
-        value: "jakarta"
-    },
-    {
-        name: "Batam",
-        value: "batam"
-    },
-    {
-        name: "Singapore",
-        value: "singapore"
-    },
-    {
-        name: "Kuala Lumpur",
-        value: "kuala lumpur"
-    },
-    {
-        name: "Bandung",
-        value: "bandung"
-    },
+    { name: "Jakarta", value: "jakarta" },
+    { name: "Batam", value: "batam" },
+    { name: "Singapore", value: "singapore" },
+    { name: "Kuala Lumpur", value: "kuala lumpur" },
+    { name: "Bandung", value: "bandung" },
+]
+
+const prices = [
+    { name: "Free", value: "free" },
+    { name: "Paid", value: "paid" },
 ]
 
 const SearchFilter = () => {
     const [searchedCategory, setSearchedCategory] = useState<string[]>([])
     const [searchedLocation, setSearchedLocation] = useState<string[]>([])
+    const [searchedPrice, setSearchedPrice] = useState<string[]>([])
     const searchParams = useSearchParams()
     const pathname = usePathname()
     const router = useRouter()
 
-    const onFilterHandle = () => {
+    const debouncedCategory = useDebounce(searchedCategory, 600)
+    const debouncedLocation = useDebounce(searchedLocation, 600)
+    const debouncedPrice = useDebounce(searchedPrice, 600)
+
+    useEffect(() => {
         let params = new URLSearchParams(searchParams.toString())
 
-        if (searchedCategory.length > 0) {
-            params.set('category', searchedCategory.join("%"))
+        if (debouncedCategory.length > 0) {
+            params.set('category', debouncedCategory.join("%"))
         } else {
             params.delete('category')
         }
 
-        if (searchedLocation.length > 0) {
-            params.set('location', searchedLocation.join("%"))
+        if (debouncedLocation.length > 0) {
+            params.set('location', debouncedLocation.join("%"))
         } else {
             params.delete('location')
         }
 
-        router.replace(`${pathname}?${params.toString()}`)
-    }
-    
+        if (debouncedPrice.length > 0) {
+            params.set('location', debouncedPrice.join("%"))
+        } else {
+            params.delete('location')
+        }
+
+        router.push(`${pathname}?${params.toString()}`)
+    }, [debouncedCategory, debouncedLocation, debouncedPrice, pathname, router, searchParams])
+
     return (
         <div className='w-full flex flex-col pl-8 lg:pl-16 pr-5'>
             <div className='w-full'>
@@ -82,8 +72,11 @@ const SearchFilter = () => {
             <div className='flex flex-col gap-4'>
                 <h1 className='text-base font-medium text-default'>Price</h1>
                 <div className='flex flex-col gap-2'>
-                    <CheckLabel value='free' label='Free' />
-                    <CheckLabel value='paid' label='Paid' />
+                    {
+                        prices.map((price, i) => (
+                            <CheckLabel value={price.value} label={price.name} key={i} onChange={setSearchedPrice} />
+                        ))
+                    }
                 </div>
             </div>
             <Separator className='my-3 bg-second-lightest' />
@@ -108,9 +101,6 @@ const SearchFilter = () => {
                     }
                 </div>
             </div>
-            <Button className='w-full bg-primary-default text-[#fff] mt-5 rounded-[2px] hover:bg-primary-lightest hover:text-primary-default' onClick={onFilterHandle}>
-                Apply Filter
-            </Button>
         </div>
     )
 }
