@@ -93,7 +93,7 @@ const config = {
           to: { height: "0" },
         },
         'slide-in-right': {
-          '0%': { transform: 'translateX(100%)' },
+          '0%': { transform: 'translateX(-100%)' },
           '100%': { transform: 'translateX(0)' },
         },
         'slide-out-right': {
