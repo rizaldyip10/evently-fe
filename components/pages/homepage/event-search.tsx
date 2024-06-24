@@ -16,26 +16,6 @@ const EventSearch: React.FC = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  // const createQueryString = useCallback((name: string, value: string) => {
-  //   const params = new URLSearchParams(searchParams.toString())
-  //   if (value.includes(" ")) {
-  //     value.replace(" ", "+")
-  //   }
-  //   params.set(name, value)
-
-  //   return params.toString()
-  // }, [searchParams])
-
-  // let searchQuery: string = createQueryString("event", search) + "&" + createQueryString("date", date ? date.toDateString() : '')
-
-  // // if (search && date) {
-  // //   searchQuery = createQueryString("event", search) + "&" + createQueryString("date", date.toDateString())
-  // // } else if (search) {
-  // //   searchQuery = createQueryString("event", search)
-  // // } else if (date) {
-  // //   createQueryString("date", date.toDateString())
-  // // }
-
   const onSearch = () => {
     let params = new URLSearchParams(searchParams.toString())
 
