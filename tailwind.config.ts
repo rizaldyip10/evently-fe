@@ -23,7 +23,13 @@ const config = {
       'default': '#1B1B25',
       'light': '#5C5C5F',
       'second-lightest': '#DDDDDE',
-      'lightest': '#F7F7F7'
+      'lightest': '#F7F7F7',
+      'primary-white' : '#ffff',
+      'slate-200': '#E2E8F0',
+      'slate-300': '#CBD5E1',
+      'slate-400': '#94A3B8',
+      'gray-700': '#344054',
+      'purple-50': '#F4F3FF'
     },
     container: {
       center: true,
