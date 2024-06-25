@@ -44,6 +44,7 @@ const SearchFilter = () => {
 
         if (debouncedCategory.length > 0) {
             params.set('category', debouncedCategory.join("%"))
+
         } else {
             params.delete('category')
         }
