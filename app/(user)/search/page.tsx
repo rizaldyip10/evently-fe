@@ -10,7 +10,7 @@ const SearchPage = () => {
         <div className='hidden md:block md:w-52 lg:w-72 my-10 border-r border-second-lightest md:absolute'>
           <SearchFilter />
         </div>
-        <div className=' mx-6 md:mx-10 md:ml-56 lg:ml-80 flex flex-col gap-5 md:gap-20'>
+        <div className='w-full mx-6 md:mx-10 md:ml-56 lg:ml-80 flex flex-col justify-center gap-5 md:gap-20'>
           <EventSearch />
           <MobileSearchFilter />
           <EventList />
