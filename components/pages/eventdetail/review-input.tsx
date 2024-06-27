@@ -10,7 +10,8 @@ import RatingInput from '../global/rating-input'
 
 const ReviewInput = () => {
     const reviewSchema = Yup.object().shape({
-        review: Yup.string().min(3, "Min 3 characters").max(140, "Max 140 characters").required("Your review is required")
+        review: Yup.string().min(3, "Min 3 characters").max(140, "Max 140 characters").required("Your review is required"),
+        rating: Yup.number().min(1, "You have to give rating for the event").max(5, "Max rating is 5").required("Rating is required")
     })
 
     const initialValue = {
@@ -39,8 +40,8 @@ const ReviewInput = () => {
                             <RatingInput />
                         </div>
                         <TextAreaField name='review' placeholder='Enter your review' />
-                        <Button className='w-full bg-primary-default rounded-[4px] md:w-16' type='submit'>
-                            <h1 className='text-primary-white text-sm'>Submit</h1>
+                        <Button className='w-full bg-primary-default text-primary-white rounded-[4px] md:w-16 hover:bg-second-lightest focus:outline-none hover:text-primary-default' type='submit'>
+                            <h1 className='text-sm'>Submit</h1>
                         </Button>
                     </Form>
                 )}
