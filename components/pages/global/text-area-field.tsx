@@ -12,7 +12,7 @@ const TextAreaField: React.FC<TextAreaFieldProps> = ({ label, ...props }) => {
     const [, meta] = useField(props)
 
     return (
-        <div className="w-full items-center flex gap-1.5 rounded-md">
+        <div className="w-full flex flex-col gap-2 rounded-md">
             {
                 label && <Label htmlFor={props.name} className="text-[14px] text-gray-700">{label}</Label>
             }
