@@ -56,9 +56,9 @@ const SearchFilter = () => {
         }
 
         if (debouncedPrice.length > 0) {
-            params.set('location', debouncedPrice.join("%"))
+            params.set('price', debouncedPrice.join("%"))
         } else {
-            params.delete('location')
+            params.delete('price')
         }
 
         router.push(`${pathname}?${params.toString()}`)
