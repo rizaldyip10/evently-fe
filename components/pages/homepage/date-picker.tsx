@@ -26,7 +26,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ date, setDate }) => {
                     }
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className={cn('w-auto p-0 bg-[#fff] -translate-x-[18%] -translate-y-1/2 md:translate-x-0 md:translate-y-0', pathname == '/search' ? '-translate-x-[18%] translate-y-0' : '')} align='start'>
+            <PopoverContent className={cn('w-auto p-0 bg-[#fff] -translate-x-[18%] -translate-y-1/2 md:translate-x-0 md:translate-y-0', pathname == '/events' ? '-translate-x-[18%] translate-y-0' : '')} align='start'>
                 <Calendar
                     mode='single'
                     selected={date}

@@ -4,23 +4,23 @@ import Badge from '../global/badge'
 const filters = [
     {
         name: "Concerts",
-        href: "/search?category=concerts"
+        href: "/events?category=concerts"
     },
     {
         name: "Arts",
-        href: "/search?category=arts"
+        href: "/events?category=arts"
     },
     {
         name: "Conferences",
-        href: "/search?category=conference"
+        href: "/events?category=conference"
     },
     {
         name: "Movies",
-        href: "/search?category=movies"
+        href: "/events?category=movies"
     },
     {
         name: "International",
-        href: "/search?category=international"
+        href: "/events?category=international"
     },
 ]
 
