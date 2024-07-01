@@ -39,11 +39,11 @@ const EventSearch: React.FC = () => {
       params.delete('date')
     }
 
-    router.replace(`/search?${params.toString()}`)
+    router.replace(`/events?${params.toString()}`)
   }
 
   useEffect(() => {
-    if (pathname == "/search") {
+    if (pathname == "/events") {
       let params = new URLSearchParams(searchParams.toString())
 
       if (debouncedSearch.length > 0) {
@@ -61,7 +61,7 @@ const EventSearch: React.FC = () => {
         params.delete('date')
       }
 
-      router.replace(`/search?${params.toString()}`)
+      router.replace(`/events?${params.toString()}`)
     }
   }, [debouncedDate, debouncedSearch, pathname, router, searchParams])
 
@@ -78,7 +78,7 @@ const EventSearch: React.FC = () => {
       <div className='w-1/2 flex items-center md:pr-5'>
         <DatePicker date={date} setDate={setDate} />
         <Button
-          className={cn('w-10 h-10 md:w-10 lg:w-24 bg-primary-default text-[#fff] rounded-[2px] ml-auto p-0 md:px-3 hover:bg-primary-lightest hover:text-primary-default', pathname == "/search" ? "hidden" : "")}
+          className={cn('w-10 h-10 md:w-10 lg:w-24 bg-primary-default text-[#fff] rounded-[2px] ml-auto p-0 md:px-3 hover:bg-primary-lightest hover:text-primary-default', pathname == "/events" ? "hidden" : "")}
           onClick={onSearch}
         >
           <Image src={searchIcon} alt='' className='w-3 h-3 md:w-5 md:h-5 hover:text-primary-default object-cover' />
