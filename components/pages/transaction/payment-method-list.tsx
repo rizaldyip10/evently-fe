@@ -10,7 +10,7 @@ import Image from 'next/image'
 
 const PaymentMethodList = () => {
     return (
-        <div className='w-full flex flex-col gap-10' role='group' aria-labelledby='radio-group'>
+        <div className='w-full flex flex-col gap-5 lg:gap-10' role='group' aria-labelledby='radio-group'>
             <div className='w-full flex flex-col gap-4'>
                 <h1 className='font-medium text-2xl font-general-sans mb-4'>Credit Card</h1>
                 <label htmlFor='creditCard' className='w-full flex gap-2 items-center border border-light rounded-[4px] bg-primary-white px-4 py-2 cursor-pointer'>

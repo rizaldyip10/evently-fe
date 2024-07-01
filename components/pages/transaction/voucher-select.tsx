@@ -18,10 +18,12 @@ const VoucherSelect = () => {
             <div className='w-full flex flex-col gap-2'>
                 {
                     promos.map((promo, i) => (
-                        <label key={i} className='w-full flex flex-col p-3 border border-light rounded-[4px] gap-1 data-[state=checked]:bg-primary-lightest'>
-                            <Input type='checkbox' value={promo.discount} className='hidden data-[state=checked]:bg-primary-lightest' />
-                            <h1 className='text-sm font-bold text-primary-default'>Discount</h1>
-                            <p className='font-bold'>{ promo.name }</p>
+                        <label key={i} className='w-full flex p-3 border border-light rounded-[4px] gap-1 data-[state=checked]:bg-primary-lightest items-center justify-between'>
+                            <div className='flex flex-col gap-1'>
+                                <h1 className='text-sm font-bold text-primary-default'>Discount</h1>
+                                <p className='font-bold'>{ promo.name }</p>
+                            </div>
+                            <Input type='checkbox' value={promo.discount} className='w-4 h-4' />
                         </label>
                     ))
                 }

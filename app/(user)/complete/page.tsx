@@ -10,7 +10,7 @@ const CompletePaymentPage = () => {
             <div className='w-full border-[2px] border-primary-default rounded-[4px] px-10 p-2 flex justify-center'>
                 <h1 className='text-5xl font-bold font-cabinet-grotesk text-primary-default'>Completed!</h1>
             </div>
-            <Image src={completeImg} alt='' />
+            <Image src={completeImg} alt='' className='w-auto' />
         </div>
         <div className='flex flex-col text-center'>
           <h1 className='text-2xl font-medium font-general-sans'>Tickets have been sent to</h1>
