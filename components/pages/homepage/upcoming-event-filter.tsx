@@ -32,7 +32,8 @@ const UpcomingEventFilter = () => {
                 <Badge 
                     classname='border border-primary-default text-primary-default w-max h-max p-3 rounded-[4px] text-xs md:text-base hover:bg-second-lightest cursor-pointer' 
                     key={index}
-                    label={item.name} 
+                    label={item.name}
+                    href={item.href}
                 />
             ))
         }
