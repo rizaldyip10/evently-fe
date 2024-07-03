@@ -1,6 +1,7 @@
 import OrderSummary from '@/components/pages/transaction/order-summary'
 import PaymentMethodList from '@/components/pages/transaction/payment-method-list'
 import PointPayment from '@/components/pages/transaction/point-payment'
+import TransactionBackBtn from '@/components/pages/transaction/transaction-back-btn'
 import VoucherSelect from '@/components/pages/transaction/voucher-select'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
@@ -12,9 +13,7 @@ const PaymentPage = ({ params }: { params: { eventSlug: string } }) => {
     return (
         <div className='w-full flex flex-col items-center p-5 mb-20 mt-5 lg:mt-10'>
             <div className='flex w-full flex-col lg:flex-row md:max-w-7xl gap-11'>
-                <Link href={`/${params.eventSlug}/tickets`} className='w-11 h-11 flex items-center justify-center border border-primary-default rounded-[4px] bg-primary-white'>
-                    <ArrowLeft className='w-5 h-5 text-primary-default' />
-                </Link>
+                <TransactionBackBtn href={`/events/${params.eventSlug}/tickets`} title='Exit Payment Page' desc='Are you sure you want to go back?'/>
                 <div className='w-full lg:w-[95%] flex flex-col gap-14'>
                     <h1 className='text-3xl font-cabinet-grotesk font-bold'>Payment Method</h1>
                     <div className='w-full flex flex-col lg:flex-row gap-10 lg:gap-0'>
