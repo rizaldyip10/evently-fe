@@ -1,12 +1,11 @@
 import React from 'react'
 import ProfileSideBarItem from './profile-sidebar-item'
-import { BadgeCent, ReceiptText, Ticket, User } from 'lucide-react'
+import { BadgeCent, ReceiptText, User } from 'lucide-react'
 
 const routes = [
     { label: 'Profile', href: '/profile', icon: User },
     { label: 'Referral', href: '/profile/referral', icon: BadgeCent },
-    { label: 'My Ticket', href: '/profile/ticket', icon: Ticket },
-    { label: 'Transactions', href: '/profile/transactions', icon: ReceiptText }
+    { label: 'My Orders', href: '/profile/orders', icon: ReceiptText }
 ]
 
 const ProfileSidebarRoutes = () => {
