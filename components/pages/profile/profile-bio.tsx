@@ -35,7 +35,7 @@ const ProfileBio = () => {
             }}
         >
             {() => (
-                <Form className='flex flex-col w-[60%] gap-5'>
+                <Form className='flex flex-col w-full md:w-[60%] gap-5'>
                     <InputField 
                         name='name'
                         placeholder='Your name'
