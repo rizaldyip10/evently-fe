@@ -11,7 +11,7 @@ const SearchPage = () => {
           <SearchFilter />
         </div>
         <div className='w-full mx-6 md:mx-10 md:ml-56 lg:ml-80 flex flex-col justify-center gap-5 md:gap-20'>
-          <Suspense>
+          <Suspense fallback={<p>Loading...</p>}>
             <EventSearch />
             <MobileSearchFilter />
             <EventList />
