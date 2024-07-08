@@ -78,7 +78,7 @@ const EventHiveSignup = () => {
                   Signup
                 </Button>
 
-                <p className="text-slate-400 text-sm">Don't have an account? <button className="text-primary-default font-medium">Register</button></p>
+                <p className="text-slate-400 text-sm">Don&apos;t have an account? <button className="text-primary-default font-medium">Register</button></p>
               </Form>
             )}
           </Formik>
