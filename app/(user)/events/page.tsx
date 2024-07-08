@@ -2,7 +2,7 @@ import EventList from '@/components/pages/global/event-list'
 import EventSearch from '@/components/pages/homepage/event-search'
 import MobileSearchFilter from '@/components/pages/searchpage/mobile-search-filter'
 import SearchFilter from '@/components/pages/searchpage/search-filter'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 const SearchPage = () => {
   return (
@@ -11,9 +11,11 @@ const SearchPage = () => {
           <SearchFilter />
         </div>
         <div className='w-full mx-6 md:mx-10 md:ml-56 lg:ml-80 flex flex-col justify-center gap-5 md:gap-20'>
-          <EventSearch />
-          <MobileSearchFilter />
-          <EventList />
+          <Suspense>
+            <EventSearch />
+            <MobileSearchFilter />
+            <EventList />
+          </Suspense>
         </div>
     </div>
   )
