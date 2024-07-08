@@ -7,16 +7,16 @@ import React, { Suspense } from 'react'
 const SearchPage = () => {
   return (
     <div className='w-full flex relative my-5 lg:my-14'>
+      <Suspense fallback={<p>Loading...</p>}>
         <div className='hidden md:block md:w-52 lg:w-72 my-10 border-r border-second-lightest md:absolute'>
           <SearchFilter />
         </div>
         <div className='w-full mx-6 md:mx-10 md:ml-56 lg:ml-80 flex flex-col justify-center gap-5 md:gap-20'>
-          <Suspense>
-            <EventSearch />
-            <MobileSearchFilter />
-            <EventList />
-          </Suspense>
+          <EventSearch />
+          <MobileSearchFilter />
+          <EventList />
         </div>
+      </Suspense>
     </div>
   )
 }
