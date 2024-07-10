@@ -1,8 +1,10 @@
+"use client"
+
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import React from "react";
-import threedot from "@/assets/icons/three-dot.svg";
-import filterLine from "@/assets/icons/filter-lines.svg";
+import React, { useState } from "react";
+// import threedot from "@/assets/icons/three-dot.svg";
+// import filterLine from "@/assets/icons/filter-lines.svg";
 import {
   Select,
   SelectContent,
@@ -13,13 +15,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import DashboardCard from "@/components/pages/admin/dashboard-card";
+import { Badge } from "@/components/ui/badge";
+import Filters from "@/components/pages/admin/filter";
 
 const TableHeads = [
   "Event name",
-  "Event total order",
-  "Event category",
   "Event date",
-  "Event total attendance"
+  "Event category",
+  "Event total attendance",
+   "Event total order",
 ];
 
 const TableBody = [
@@ -47,6 +51,9 @@ const TableBody = [
 ];
 
 const AdminHomePage = () => {
+
+
+
   return (
     <div className="flex flex-col items-center px-10 py-5 bg-blue-50 h-screen">
       <div className="w-full flex flex-row justify-between">
@@ -78,19 +85,21 @@ const AdminHomePage = () => {
         <div className="flex flex-row justify-between w-full pt-10 pb-2">
           <h1 className="font-semibold text-lg flex items-center">Title</h1>
           <Select>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[180px] bg-primary-white border-slate-300 rounded-[8px]">
               <SelectValue placeholder='Filter' />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-primary-white rounded-[8px] shadow-md border-slate-300">
               <SelectGroup>
-                <SelectLabel>Event A-Z</SelectLabel>
-                <SelectItem value="test">test 1</SelectItem>
-                <SelectItem value="test">test 2</SelectItem>
-                <SelectItem value="test">test 3</SelectItem>
+                <SelectLabel></SelectLabel>
+                <SelectItem value="test">By Month</SelectItem>
+                <SelectItem value="test">By Year</SelectItem>
+                <SelectItem value="test"></SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
-          <button className="flex flex-row justify-between border border-slate-300 bg-primary-white rounded-[8px] px-4 py-2 text-gray-700 gap-2">
+
+          <Filters />
+          {/* <button className="flex flex-row justify-between border border-slate-300 bg-primary-white rounded-[8px] px-4 py-2 text-gray-700 gap-2">
             <Image
               src={filterLine}
               width={24}
@@ -98,7 +107,7 @@ const AdminHomePage = () => {
               alt="filter-line-icon"
             />
             Filter
-          </button>
+          </button> */}
         </div>
         
         <table className="w-full pt-2 rounded-[8px] border border-slate-100">
@@ -113,19 +122,24 @@ const AdminHomePage = () => {
             {TableBody?.map((tr, index) => (
               <tr key={index} className="bg-primary-white">
                 <td className="p-3">{tr.name}</td>
-                <td className="p-3">{tr.total}</td>
+                  <td className="p-3">{tr.date}</td>
+               
                 <td className="p-3">
-                  <div className="bg-primary-darkest text-primary-white text-center rounded-[100px]">
+                  <Badge>{tr.category}</Badge>
+                  {/* <div className="bg-primary-darkest text-primary-white text-center rounded-[100px]">
                     {tr.category}
-                  </div>
+                  </div> */}
                     </td>
-                <td className="p-3">{tr.date}</td>
                 <td className="p-3">{tr.attendance}</td>
+                <td className="p-3">{tr.total}</td>
+          
+               
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      
     </div>
   );
 };

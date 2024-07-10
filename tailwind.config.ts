@@ -36,7 +36,16 @@ const config = {
       'gray-100': '#F2F4F7',
       'gray-600': '#475467',
       'gray-900': '#101828',
-      'green-700': '#067647'
+      'green-700': '#067647',
+      'green-50': '#ECFDF3',
+      'success-500': '#17B26A',
+      'warning-500': '#F79009',
+      'warning-50': '#FFFAEB',
+      'blue-700': '#9E77ED',
+      'blue-100': '#F4EBFF',
+      'pink-700': '#EE46BC',
+      
+
     
       
     },
