@@ -10,7 +10,7 @@ interface EventCardProps {
 
 const EventCard: React.FC<EventCardProps> = ({ classname, image }) => {
   return (
-    <div className={cn("w-full flex flex-col justify-center border border-second-lightest rounded-[8px] cursor-pointer")}>
+    <div className={cn("w-full flex flex-col justify-center border bg-primary-white border-second-lightest rounded-[8px] cursor-pointer")}>
         <div className='w-full'>
           <Image alt='' src={eventImage} className='w-full h-32 object-cover' />
         </div>

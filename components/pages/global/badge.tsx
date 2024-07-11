@@ -14,7 +14,7 @@ const Badge: React.FC<BadgeProps> = ({ label, classname, href }) => {
     const router = useRouter()
     let onClick
 
-    if (href != undefined) {
+    if (href) {
         onClick = () => {
             router.push(href)
         }

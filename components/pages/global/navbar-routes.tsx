@@ -9,7 +9,7 @@ const categories = [
     },
     {
         name: "Events",
-        href: "/search"
+        href: "/events"
     },
     {
         name: "About Us",
