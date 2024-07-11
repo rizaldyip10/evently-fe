@@ -7,8 +7,8 @@ import { Button } from '@/components/ui/button';
 import loginasset from "@/assets/image/login-assets.svg";
 import singupassetweb from "@/assets/image/signup-assets-web.svg";
 import { Form, Formik } from "formik";
-import InputField from '@/components/page/global/inputfield';
 import RegisterDialog from '@/components/page/global/RegisterDialog';
+import InputField from '@/components/pages/global/inputfield';
 
 const RegisterPage = () => {
 
