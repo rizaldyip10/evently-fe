@@ -29,7 +29,25 @@ const config = {
       'slate-300': '#CBD5E1',
       'slate-400': '#94A3B8',
       'gray-700': '#344054',
-      'purple-50': '#F4F3FF'
+      'purple-50': '#F4F3FF',
+      'slate-100': '#EAECF0',
+      'gray-50' : '#FCFCFD',
+      'blue-50': '#F9FAFB',
+      'gray-100': '#F2F4F7',
+      'gray-600': '#475467',
+      'gray-900': '#101828',
+      'green-700': '#067647',
+      'green-50': '#ECFDF3',
+      'success-500': '#17B26A',
+      'warning-500': '#F79009',
+      'warning-50': '#FFFAEB',
+      'blue-700': '#9E77ED',
+      'blue-100': '#F4EBFF',
+      'pink-700': '#EE46BC',
+      
+
+    
+      
     },
     container: {
       center: true,
