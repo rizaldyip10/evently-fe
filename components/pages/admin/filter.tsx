@@ -1,50 +1,75 @@
 import Image from 'next/image';
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import filterLine from "@/assets/icons/filter-lines.svg";
-
-
-
-const filterMenu = ['Category', 'A - Z'];
-
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { ChevronDown } from 'lucide-react';
 
 const Filters: React.FC = () => {
+  const [openCategory, setOpenCategory] = useState<string | null>(null);
+  const [selectedValue, setSelectedValue] = useState<string>('');
 
-    const [isNavOpen, setOpenNav] = useState(false);
-    const [openDropdown, setOpenDropDown] = useState(false);
+  const handleCategoryClick = (category: string) => {
+    setOpenCategory(openCategory === category ? null : category);
+  };
 
-    const toggleNav = () => {
-        setOpenNav(!isNavOpen);
-        setOpenDropDown(false);
-    };
-
-    const toggleDropDown = () => {
-        setOpenDropDown(!openDropdown)
-    };
-
+  const handleItemClick = (value: string) => {
+    setSelectedValue(value);
+    setOpenCategory(null);
+    
+    console.log(`Selected value: ${value}`);
+  };
 
   return (
-    <div>
-         <button className="flex flex-row justify-between border border-slate-300 bg-primary-white rounded-[8px] px-4 py-2 text-gray-700 gap-2">
-            <Image
-              src={filterLine}
-              width={24}
-              height={24}
-              alt="filter-line-icon"
-              onClick={toggleNav}
-            />
-            Filter
-          </button>
-          { isNavOpen && (
-            <div className='w-full bg-primary-white shadow-md rounded-[8px] '>
-                <div className='flex flex-col px-2 py-1 text-gray-700 hover:bg-gray-50'>
-                    {filterMenu}
-                </div>
-
+    <div className="flex items-center">
+      {/* <Image src={filterLine} alt="Filter" width={24} height={24} className="mr-2" /> */}
+      <Select value={selectedValue} onValueChange={handleItemClick}>
+        <SelectTrigger className="w-[180px] bg-primary-white border-slate-300 rounded-[8px]">
+          <SelectValue placeholder='Filter'>
+            {selectedValue || 'Filter'}
+          </SelectValue>
+        </SelectTrigger>
+        <SelectContent className="bg-primary-white rounded-[8px] shadow-md border-slate-300">
+          <SelectGroup>
+            <div 
+              className="flex justify-between items-center px-2 py-1 cursor-pointer hover:bg-gray-100"
+              onClick={() => handleCategoryClick('date')}
+            >
+              <span className='text-sm text-gray-600'>By Date</span>
+              <ChevronDown className={`w-4 h-4 transition-transform ${openCategory === 'date' ? 'transform rotate-180' : ''}`} />
             </div>
-          )}
-      
+            {openCategory === 'date' && (
+              <div className="pl-4 hover:border-y-gray-100">
+                <SelectItem value="month" onClick={() => handleItemClick('month')} className='hover:bg-gray-100 cursor-pointer'>By Month</SelectItem>
+                <SelectItem value="year" onClick={() => handleItemClick('year')} className='hover:bg-gray-100 cursor-pointer'>By Year</SelectItem>
+              </div>
+            )}
+          </SelectGroup>
+          <SelectGroup>
+            <div 
+              className="flex justify-between items-center px-2 py-1 cursor-pointer hover:bg-gray-100"
+              onClick={() => handleCategoryClick('category')}
+            >
+              <span className='text-sm text-gray-600'>By Category</span>
+              <ChevronDown className={`w-4 h-4 transition-transform ${openCategory === 'category' ? 'transform rotate-180' : ''}`} />
+            </div>
+            {openCategory === 'category' && (
+              <div className="pl-4">
+                <SelectItem value="music" onClick={() => handleItemClick('music')}>Music</SelectItem>
+                <SelectItem value="movie" onClick={() => handleItemClick('movie')}>Movie</SelectItem>
+              </div>
+            )}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
     </div>
-  )
-}
+  );
+};
 
-export default Filters
+export default Filters;
