@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import React from 'react'
 import NavbarItems from './nav-items'
 
@@ -30,7 +29,7 @@ const NavbarRoutes: React.FC<NavbarRoutesProps> = ({ style }) => {
     <div className={style}>
         {
             categories.map((item, index) => (
-                <NavbarItems label={item.name} key={index} href={item.href} variant="ghost" textSize='text-lg text-default font-normal' />
+                <NavbarItems label={item.name} key={index} href={item.href} variant="ghost" textSize='text-xl lg:text-lg text-default font-normal' />
             ))
         }
     </div>
