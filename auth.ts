@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-import NextAuth from "next-auth";
+import NextAuth, { User } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt";
 import axios from "./utils/axios";
@@ -64,20 +64,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         signIn: "/login"
     },
     callbacks: {
-        async jwt({ token, user }: { token: JWT, user: UserSessionProps }) {
+        async jwt({ token, user }: { token: JWT, user: User }) {
             if (user) {
                 token.id = user.id
                 token.email = user.email
-                token.role = user.role
+                // token.role = user.role
             }
 
             return token
         },
         async session({ session, token }: { session: any, token: JWT }) {
+            console.log(session.user);
+            
             session.user = {
                 id: token.id,
                 email: token.email,
-                role: token.role
+                // role: token.role
             }
             return session
         }

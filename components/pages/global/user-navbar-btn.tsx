@@ -14,7 +14,6 @@ const UserNavbarBtn = () => {
         signOut({ callbackUrl: '/' })
     }
     const { profile } = useUserProfile()
-    console.log("user profile", profile);
 
     return (
         <DropdownMenu>
