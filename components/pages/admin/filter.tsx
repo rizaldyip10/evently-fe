@@ -1,4 +1,5 @@
 import Image from 'next/image';
+
 import React, { useState } from 'react';
 import filterLine from "@/assets/icons/filter-lines.svg";
 import {
@@ -73,3 +74,4 @@ const Filters: React.FC = () => {
 };
 
 export default Filters;
+
