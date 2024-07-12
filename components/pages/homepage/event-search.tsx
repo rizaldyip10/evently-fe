@@ -39,11 +39,11 @@ const EventSearch: React.FC = () => {
       params.delete('date')
     }
 
-    router.replace(`/search?${params.toString()}`)
+    router.replace(`/events?${params.toString()}`)
   }
 
   useEffect(() => {
-    if (pathname == "/search") {
+    if (pathname == "/events") {
       let params = new URLSearchParams(searchParams.toString())
 
       if (debouncedSearch.length > 0) {
@@ -61,12 +61,12 @@ const EventSearch: React.FC = () => {
         params.delete('date')
       }
 
-      router.replace(`/search?${params.toString()}`)
+      router.replace(`/events?${params.toString()}`)
     }
   }, [debouncedDate, debouncedSearch, pathname, router, searchParams])
 
   return (
-    <div className='w-full border-default border h-9 md:h-16 flex items-center bg-[#fff] rounded-[2px]'>
+    <div className='w-full border-default border md:h-16 flex items-center bg-[#fff] rounded-[2px]'>
       <div className='w-1/2'>
         <Input
           className='border-none text-[10px] md:text-lg placeholder:text-[10px] md:placeholder:text-lg'
@@ -75,10 +75,10 @@ const EventSearch: React.FC = () => {
         />
       </div>
       <Separator orientation='vertical' className='bg-second-lightest h-5 md:h-8' />
-      <div className='w-1/2 flex items-center pr-5'>
+      <div className='w-1/2 flex items-center md:pr-5'>
         <DatePicker date={date} setDate={setDate} />
         <Button
-          className={cn('w-5 h-5 md:w-10 lg:w-24 md:h-10 bg-primary-default text-[#fff] rounded-[2px] ml-auto p-0 hover:bg-primary-lightest hover:text-primary-default', pathname == "/search" ? "hidden" : "")}
+          className={cn('w-10 h-10 md:w-10 lg:w-24 bg-primary-default text-[#fff] rounded-[2px] ml-auto p-0 md:px-3 hover:bg-primary-lightest hover:text-primary-default', pathname == "/events" ? "hidden" : "")}
           onClick={onSearch}
         >
           <Image src={searchIcon} alt='' className='w-3 h-3 md:w-5 md:h-5 hover:text-primary-default object-cover' />

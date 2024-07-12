@@ -4,23 +4,23 @@ import Badge from '../global/badge'
 const filters = [
     {
         name: "Concerts",
-        href: "/search?category=concerts"
+        href: "/events?category=concerts"
     },
     {
         name: "Arts",
-        href: "/search?category=arts"
+        href: "/events?category=arts"
     },
     {
         name: "Conferences",
-        href: "/search?category=conference"
+        href: "/events?category=conference"
     },
     {
         name: "Movies",
-        href: "/search?category=movies"
+        href: "/events?category=movies"
     },
     {
         name: "International",
-        href: "/search?category=international"
+        href: "/events?category=international"
     },
 ]
 
@@ -32,7 +32,8 @@ const UpcomingEventFilter = () => {
                 <Badge 
                     classname='border border-primary-default text-primary-default w-max h-max p-3 rounded-[4px] text-xs md:text-base hover:bg-second-lightest cursor-pointer' 
                     key={index}
-                    label={item.name} 
+                    label={item.name}
+                    href={item.href}
                 />
             ))
         }

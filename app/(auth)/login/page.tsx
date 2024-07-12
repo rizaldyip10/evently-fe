@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import InputField from "@/components/page/global/inputfield";
+import InputField from "@/components/pages/global/inputfield";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import loginasset from "@/assets/image/login-assets.svg";
@@ -78,7 +78,7 @@ const EventHiveSignup = () => {
                   Signup
                 </Button>
 
-                <p className="text-slate-400 text-sm">Don't have an account? <button className="text-primary-default font-medium">Register</button></p>
+                <p className="text-slate-400 text-sm">Don&apos;t have an account? <button className="text-primary-default font-medium">Register</button></p>
               </Form>
             )}
           </Formik>
