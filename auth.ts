@@ -50,17 +50,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 })
 
                 const decodedJwt = jwtDecode<DecodedTokenProps>(data.token)
-                // const returnedValue: UserSessionProps = {
-                //     id: decodedJwt.userId,
-                //     email: decodedJwt.sub,
-                //     role: decodedJwt.scope
-                // }
-
-                return {
-                    id: decodedJwt.userId,
+                const returnedValue: UserSessionProps = {
+                    id: decodedJwt.userId.toString(),
                     email: decodedJwt.sub,
                     role: decodedJwt.scope
                 }
+
+                return returnedValue
             }
         })
     ],
