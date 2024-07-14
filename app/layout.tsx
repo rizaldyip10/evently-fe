@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import ToastProvider from "@/components/provider/toast-provider";
 import { SessionProvider } from "next-auth/react";
+import RqProvider from "@/utils/providers/rq-providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <SessionProvider>
-        <body className={inter.className}>
-          <ToastProvider />
-          {children}
-        </body>
+        <RqProvider>
+          <body className={inter.className}>
+            <ToastProvider />
+            {children}
+          </body>
+        </RqProvider>
       </SessionProvider>
     </html>
   );
