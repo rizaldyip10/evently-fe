@@ -1,16 +1,24 @@
+"use client"
+
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import React from 'react'
 import eventImage from '@/assets/image/image 2.png'
+import { useRouter } from 'next/navigation'
 
 interface EventCardProps {
     classname?: string
     image?: string
+    slug: string
 }
 
-const EventCard: React.FC<EventCardProps> = ({ classname, image }) => {
+const EventCard: React.FC<EventCardProps> = ({ classname, image, slug }) => {
+  const router = useRouter();
   return (
-    <div className={cn("w-full flex flex-col justify-center border bg-primary-white border-second-lightest rounded-[8px] cursor-pointer")}>
+    <div 
+      className={cn("w-full flex flex-col justify-center border bg-primary-white border-second-lightest rounded-[8px] cursor-pointer")}
+      onClick={() => router.push(`/events/${slug}`)}
+    >
         <div className='w-full'>
           <Image alt='' src={eventImage} className='w-full h-32 object-cover' />
         </div>

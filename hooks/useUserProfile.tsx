@@ -1,6 +1,6 @@
 "use client"
 
-import { UserProfileType } from '@/lib/type/user-profile';
+import { UserProfileType } from '@/constants/type/user-profile';
 import axios from '@/utils/axios';
 import { useEffect, useState } from 'react'
 
