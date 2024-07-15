@@ -5,30 +5,37 @@ import { EllipsisVertical, Star } from 'lucide-react'
 import React, { useState } from 'react'
 import ReviewMenu from './review-menu'
 import ReviewEditState from './review-edit-state'
+import { UserReviewType } from '@/constants/type/user-review-type'
+import { DateFormater } from '@/utils/date-formatter'
 
-const ReviewCard = () => {
+interface ReviewCardProps {
+    eventSlug: string
+    review: UserReviewType
+}
+
+const ReviewCard: React.FC<ReviewCardProps> = ({ eventSlug, review }) => {
     const [editState, setEditState] = useState<boolean>(false)
 
     if (editState) {
-        return <ReviewEditState setEditState={setEditState} />
+        return <ReviewEditState review={review} setEditState={setEditState} />
     }
     return (
-        <div className='w-full flex items-start gap-5 pb-8 border-b border-second-lightest'>
+        <div className='w-full flex items-start gap-5 p-5 border border-second-lightest rounded-[8px] bg-primary-white'>
             <div className='w-10 h-10 rounded-full border flex justify-center items-center'>
                 P
             </div>
             <div className='flex flex-col gap-3 w-[80%] md:w-[98%]'>
                 <div className='w-full flex items-center justify-between'>
-                    <h1 className='font-bold font-general-sans text-xl'>Purwa Widodo</h1>
-                    <ReviewMenu setEditState={setEditState} />
+                    <h1 className='font-bold font-general-sans text-xl'>{review.user.name}</h1>
+                    <ReviewMenu reviewId={review.id} setEditState={setEditState} userEmail={review.user.email} />
                 </div>
                 <div className='flex gap-2 items-center'>
                     <Star className='text-[#e7e55c] w-5 h-5' />
-                    <h1 className='text-base font-general-sans font-medium'>4 ratings</h1>
-                    <p className='text-base font-general-sans font-medium ml-3'>27 Jun 2024</p>
+                    <h1 className='text-base font-general-sans font-medium'>{review.rating} ratings</h1>
+                    <p className='text-base font-general-sans font-medium ml-3'>{DateFormater(review.createdAt)}</p>
                 </div>
                 <p className='text-base font-general-sans'>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, qui nobis a asperiores aperiam excepturi. Nostrum, adipisci quod quisquam expedita exercitationem magni distinctio neque. Assumenda quasi obcaecati magni ratione adipisci.
+                    {review.review}
                 </p>
             </div>
         </div>

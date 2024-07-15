@@ -5,10 +5,11 @@ import EventPriceMobile from '@/components/pages/eventdetail/event-price-mobile'
 import EventDesc from '@/components/pages/eventdetail/event-desc'
 import ReviewSection from '@/components/pages/eventdetail/review-section'
 import axios from '@/utils/axios'
+import { EventType } from '@/constants/type/event-list'
 
 const EventDetailPage = async ({ params }: { params: { eventSlug: string } }) => {
     const { data } = await axios.get(`/event/${params.eventSlug}`);
-    const eventData = data.data;
+    const eventData: EventType = data.data;
     return (
         <div className='w-full flex flex-col items-center p-5 mb-20'>
             <div className='flex flex-col w-full md:max-w-6xl gap-8 md:gap-11'>
@@ -17,9 +18,9 @@ const EventDetailPage = async ({ params }: { params: { eventSlug: string } }) =>
                 </div>
                 <div className='w-full flex flex-col gap-10'>
                     <EventDesc data={eventData} />
-                    <EventPriceMobile />
+                    <EventPriceMobile tickets={eventData.tickets} />
                 </div>
-                <ReviewSection />
+                <ReviewSection eventSlug={params.eventSlug} />
             </div>
         </div>
     )
