@@ -1,5 +1,13 @@
 import { CategoryType } from "./category-type"
 
+export interface TicketType {
+    id: number
+    name: string
+    price: number
+    description: string
+    quota: number
+}
+
 export interface EventType {
     name: string
     slug: string
@@ -13,6 +21,7 @@ export interface EventType {
     audienceInfo: string
     attentionInfo: string
     eventImg: string
+    tickets: TicketType[]
     createdAt: string
     updatedAt: string
 }

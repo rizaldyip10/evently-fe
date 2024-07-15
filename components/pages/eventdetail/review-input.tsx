@@ -7,21 +7,46 @@ import TextAreaField from '../global/text-area-field'
 import { Button } from '@/components/ui/button'
 import ReviewInputWarning from './review-input-warning'
 import RatingInput from '../global/rating-input'
+import toast from 'react-hot-toast'
+import { whiteSpaceRegex } from '@/lib/whitespace-regex'
+import axios from '@/utils/axios'
+import { useSession } from 'next-auth/react'
+import { useQueryClient } from '@tanstack/react-query'
 
-const ReviewInput = () => {
+interface ReviewInputProps {
+    eventSlug: string
+}
+
+const ReviewInput: React.FC<ReviewInputProps> = ({ eventSlug }) => {
+    const queryClient = useQueryClient()
+    const { data: session } = useSession();
+    
+    if (!session) return null;
+
     const reviewSchema = Yup.object().shape({
-        review: Yup.string().min(3, "Min 3 characters").max(140, "Max 140 characters").required("Your review is required"),
+        review: Yup.string().min(3, "Min 3 characters").max(140, "Max 140 characters").required("Your review is required").matches(whiteSpaceRegex, "Your review is required"),
         rating: Yup.number().min(1, "You have to give rating for the event").max(5, "Max rating is 5").required("Rating is required")
     })
 
     const initialValue = {
         review: '',
         rating: 0,
-        userId: ''
     }
 
-    const onReviewSubmit = (value: FormikValues) => {
-        console.log(value);
+    const onReviewSubmit = async (value: FormikValues) => {
+        const loadingToast = toast.loading("Submitting review...");
+        try {
+            const response = await axios.post(`/review/${eventSlug}`, value)
+            console.log(response);
+            
+            toast.dismiss(loadingToast)
+            toast.success("Review submitted")
+            queryClient.invalidateQueries({ queryKey: ["get-event-reviews"] })
+        } catch (error) {
+            console.log(error);
+            toast.dismiss(loadingToast);
+            toast.error("Failed to submit your review")
+        }
     }
 
     return (
