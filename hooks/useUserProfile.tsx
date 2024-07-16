@@ -6,9 +6,6 @@ import axios from '@/utils/axios';
 import { getCookieClient } from '@/utils/client-cookies';
 
 const useUserProfile = () => {
-    const cookie = getCookieClient("sid")
-    console.log(cookie);
-    
     const {
         data,
         isLoading,
