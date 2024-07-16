@@ -23,12 +23,6 @@ const useUserProfile = () => {
     
                 setProfile(data.data)
             } catch (error) {
-                if (isAxiosError(error)) {
-                    if (error.response?.status === 401) {
-                        signOut()
-                        router.push("/login")
-                    }
-                }
                 console.error(error);
             }
         }
