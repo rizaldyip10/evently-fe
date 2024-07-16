@@ -17,7 +17,7 @@ const CategoryChart = () => {
     <div className='flex flex-col items-center px-10 py-5 bg-primary-white w-full border-slate-100 border rounded-[8px]'>
         <TitleDashboard name="Event Category" />
       <div className="pieChartBox">
-      <div className="chart">
+      <div className="w-full">
         <ResponsiveContainer width="100%" height={300}>
           <PieChart>
             <Tooltip

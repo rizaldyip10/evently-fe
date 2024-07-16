@@ -21,46 +21,76 @@ interface TitleDashboardProps {
 
 const data = [
   {
-    name: "Page A",
+    name: "Jan",
     uv: 4000,
     pv: 2400,
     amt: 2400,
   },
   {
-    name: "Page B",
+    name: "Feb",
     uv: 3000,
     pv: 1398,
     amt: 2210,
   },
   {
-    name: "Page C",
+    name: "Mar",
     uv: 2000,
     pv: 9800,
     amt: 2290,
   },
   {
-    name: "Page D",
+    name: "Apr",
     uv: 2780,
     pv: 3908,
     amt: 2000,
   },
   {
-    name: "Page E",
+    name: "May",
     uv: 1890,
     pv: 4800,
     amt: 2181,
   },
   {
-    name: "Page F",
+    name: "Jun",
     uv: 2390,
     pv: 3800,
     amt: 2500,
   },
   {
-    name: "Page G",
+    name: "Jul",
     uv: 3490,
     pv: 4300,
     amt: 2100,
+  },
+  {
+    name: "Aug",
+    uv: 3000,
+    pv: 4000,
+    amt: 2200,
+  },
+  {
+    name: "Sep",
+    uv: 2500,
+    pv: 3500,
+    amt: 2300,
+  },
+  {
+    name: "Oct",
+    uv: 2800,
+    pv: 3800,
+    amt: 2400,
+  },
+  {
+    name: "Nov",
+    uv: 3200,
+    pv: 4200,
+    amt: 2500,
+  },
+  {
+    name: "Dec",
+    uv: 3800,
+    pv: 5000,
+    amt: 2600,
   },
 ];
 
@@ -113,19 +143,18 @@ const TransactionBar: React.FC = () => {
             data={data}
             margin={{
               top: 20,
-              right: 30,
-              left: 20,
+    
               bottom: 5,
             }}
           >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+           
+            <XAxis dataKey="name"  axisLine={false}/>
             {/* <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
             <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" /> */}
             <Tooltip />
-            <Legend />
-            <Bar yAxisId="left" dataKey="pv" fill="#8884d8" />
-            <Bar yAxisId="right" dataKey="uv" fill="#82ca9d" />
+  
+            <Bar yAxisId="left" dataKey="pv" fill="#17B26A" />
+
           </BarChart>
         </ResponsiveContainer>
       </div>

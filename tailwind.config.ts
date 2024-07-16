@@ -44,6 +44,8 @@ const config = {
       'blue-700': '#9E77ED',
       'blue-100': '#F4EBFF',
       'pink-700': '#EE46BC',
+      'error-500': '#F04438',
+      'error-100': '#FEE4E2'
       
 
     

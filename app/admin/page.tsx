@@ -13,7 +13,29 @@ import {
 } from "@/components/ui/select";
 import DashboardCard from "@/components/pages/admin/dashboard-card";
 import { Badge } from "@/components/ui/badge";
-import TitleDashboard from "@/components/pages/admin/title-dashboard";
+
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+
+
+import eventImage from "@/assets/image/image 2.png";
+import Image from "next/image";
+import TransactionList from "@/components/pages/admin/transaction-list";
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import EventDetailSheet from "@/components/pages/admin/sheet";
+import EventDetailContent from "@/components/pages/admin/eventdetails-sheets";
+import { Tabs, TabsContent, TabsList } from "@radix-ui/react-tabs";
+import { TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent } from "@/components/ui/card";
+
+
 
 const TableHeads = [
   "Event name",
@@ -47,11 +69,13 @@ const TableBody = [
   },
 ];
 
+
+
 const AdminHomePage = () => {
   const [filter, setFilter] = useState("All");
   const [filteredTableBody, setFilteredTableBody] = useState(TableBody);
 
-  const handleFilter = (category : string) => {
+  const handleFilter = (category: string) => {
     setFilter(category);
     if (category === "All") {
       setFilteredTableBody(TableBody);
@@ -61,35 +85,50 @@ const AdminHomePage = () => {
     }
   };
 
+   const [selectedEvent, setSelectedEvent] = useState(null);
+
+  const handleRowClick = (event : any) => {
+    setSelectedEvent(event);
+  };
+
   return (
-    <div className="flex flex-col items-center px-10 py-5 bg-blue-50 h-screen">
+    <div className="flex flex-col items-center px-20 py-5 bg-blue-50 h-screen">
       <div className="w-full flex flex-row justify-between">
         <div className="flex flex-col gap-4">
           <h1 className="font-semibold text-3xl">Welcome back, Purwa Widodo</h1>
-          <p className="text-base text-gray-700">Lorem</p>
         </div>
         <div>
-          <Button className="bg-primary-default rounded-[4px] text-primary-white hover:bg-primary-light">
-            Create event
-          </Button>
+          <Button className="bg-primary-default rounded-[4px] text-primary-white hover:bg-primary-light">Create Event</Button>  
         </div>
       </div>
 
       <div className="w-full items-center flex flex-col pt-10 gap-4">
         <div className="bg-white flex justify-between w-full rounded-[8px] flex-col gap-4">
-          <div className="flex flex-row justify-between w-full">
-            <h1 className="font-medium text-lg">Total events</h1>
-          </div>
+          <div className="flex flex-row justify-between w-full"></div>
 
           <div className="w-full items-center flex flex-row gap-4 justify-between h-fit">
-            <DashboardCard title="Total Event" number="5" trend="This month +20%" />
-            <DashboardCard title="Transaction total" number="25" trend="This month -10%" />
-            <DashboardCard title="Total participant" number="100" trend="This month +5%" />
+            <DashboardCard
+              title="Total Event"
+              number="5"
+              trend="This month +20%"
+            />
+            <DashboardCard
+              title="Transaction total"
+              number="25"
+              trend="This month -10%"
+            />
+            <DashboardCard
+              title="Total participant"
+              number="100"
+              trend="This month +5%"
+            />
           </div>
         </div>
 
         <div className="flex flex-row justify-between w-full pt-10 pb-2">
-          <h1 className="font-semibold text-lg flex items-center">Title</h1>
+          <h1 className="font-semibold text-lg flex items-center">
+            Event list
+          </h1>
           <Select onValueChange={handleFilter}>
             <SelectTrigger className="w-[180px] bg-primary-white border-slate-300 rounded-[8px]">
               <SelectValue placeholder="Filter" />
@@ -105,6 +144,8 @@ const AdminHomePage = () => {
           </Select>
         </div>
 
+        {/* Table list */}
+
         <table className="w-full pt-2 rounded-[8px] border border-slate-100">
           <thead className="bg-blue-50 border-b border-slate-100">
             <tr className="text-sm text-gray-600 text-left p-[12px]">
@@ -118,7 +159,79 @@ const AdminHomePage = () => {
           <tbody className="font-regular text-base">
             {filteredTableBody.map((tr, index) => (
               <tr key={index} className="bg-primary-white">
-                <td className="p-3">{tr.name}</td>
+                    
+                    <Sheet>
+            <SheetTrigger>
+              <td className="p-3 cursor-pointer">{tr.name}</td> 
+              {/* <Button className="bg-primary-default rounded-[4px] text-primary-white hover:bg-primary-light">
+                Create Event
+              </Button> */}
+            </SheetTrigger>
+            <SheetContent className="w-1/2 bg-primary-white shadow-lg border-none">
+              <SheetHeader>
+                <SheetTitle>Event name</SheetTitle>
+              </SheetHeader>
+
+              <div className="w-full flex flex-row justify-center border bg-primary-white border-second-lightest rounded-[8px] mt-4">
+                <div className="w-full">
+                  <Image
+                    alt=""  
+                    src={eventImage}
+                    className="w-full h-32 object-cover"
+                  />
+                </div>
+                <div className="w-full flex p-5 justify-center gap-4">
+                  <div className="flex flex-col items-center">
+                    <p className="font-semibold text-xl text-primary-default">
+                      SEPT
+                    </p>
+                    <h1 className="font-bold text-2xl text-default">22</h1>
+                  </div>
+                  <div className="flex flex-col">
+                    <h1 className="font-semibold text-xl text-default ">
+                      Drive in Senja: Back to The Future
+                    </h1>
+                    <p className="font-semibold text-base text-light ">
+                      Parkiran Utama Mall @ Alam Sutra
+                    </p>
+                    <p className="text-base text-light">20:00 - 21:56</p>
+                    <p className="text-base text-light">IDR 212.000</p>
+                  </div>
+                </div>
+              </div>
+
+              
+
+              <Tabs defaultValue="eventdetail" className="w-full border-none flex flex-col gap-4 mt-5">
+                <TabsList className="grid w-full grid-cols-2 shadow-sm rounded-[4px] p-2">
+                  <TabsTrigger value="eventdetail" className="shadow-md rounded-[4px]">Event Details</TabsTrigger>
+                  <TabsTrigger value="eventtransaction" className="shadow-md ">Event Transaction</TabsTrigger>
+                </TabsList>
+                <TabsContent value="eventdetail" className="border-none">
+                  <Card>
+                    <CardContent className="border-none">
+                      <EventDetailContent/>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+                <TabsContent value="eventtransaction" className="border-none">
+                  <Card>
+                    <CardContent>
+                      <TransactionList/>
+                    </CardContent>
+                  </Card>
+
+                </TabsContent>
+              </Tabs>
+
+
+              <SheetFooter>
+                <SheetClose>
+                  {/* <Button type="submit">Save changes</Button> */}
+                </SheetClose>
+              </SheetFooter>
+            </SheetContent>
+          </Sheet>
                 <td className="p-3">{tr.date}</td>
                 <td className="p-3">
                   <Badge>{tr.category}</Badge>
@@ -129,6 +242,36 @@ const AdminHomePage = () => {
             ))}
           </tbody>
         </table>
+        <div className="w-full items-end">
+          <Pagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious href="#" />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#">1</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#" isActive className="bg-primary-default">
+            2
+          </PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#">3</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationEllipsis />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationNext href="#" />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
+
+        </div>
+
+        
+        
       </div>
     </div>
   );
