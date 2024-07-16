@@ -3,8 +3,12 @@
 import { UserProfileType } from '@/constants/type/user-profile';
 import { useQuery } from '@tanstack/react-query';
 import axios from '@/utils/axios';
+import { getCookieClient } from '@/utils/client-cookies';
 
 const useUserProfile = () => {
+    const cookie = getCookieClient("sid")
+    console.log(cookie);
+    
     const {
         data,
         isLoading,
