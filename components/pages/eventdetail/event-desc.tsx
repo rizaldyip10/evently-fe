@@ -47,7 +47,7 @@ const EventDesc: React.FC<EventDescProps> = ({ data }) => {
                         <p className='font-bold'>{ DateFormater(data.date) } | {data.startTime} - {data.endTime}</p>
                     </div>
                 </div>
-                <EventPrice tickets={data.tickets} />
+                <EventPrice tickets={data.tickets} eventSlug={data.slug} />
             </div>
             <div className='w-full flex flex-col gap-4 mt-5'>
                 <h1 className='text-2xl font-semibold font-general-sans'>Description</h1>

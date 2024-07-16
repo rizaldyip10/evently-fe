@@ -18,7 +18,7 @@ const EventDetailPage = async ({ params }: { params: { eventSlug: string } }) =>
                 </div>
                 <div className='w-full flex flex-col gap-10'>
                     <EventDesc data={eventData} />
-                    <EventPriceMobile tickets={eventData.tickets} />
+                    <EventPriceMobile tickets={eventData.tickets} eventSlug={params.eventSlug} />
                 </div>
                 <ReviewSection eventSlug={params.eventSlug} />
             </div>

@@ -4,18 +4,32 @@ import { Button } from '@/components/ui/button'
 import { TicketType } from '@/constants/type/event-list'
 import { currencyFormatter } from '@/utils/currency-formatter'
 import { usePathname, useRouter } from 'next/navigation'
+import axios from '@/utils/axios'
 import React from 'react'
+import toast from 'react-hot-toast'
 
 interface EventPriceProps {
     tickets: TicketType[]
+    eventSlug: string
 }
 
-const EventPrice: React.FC<EventPriceProps> = ({ tickets }) => {
+const EventPrice: React.FC<EventPriceProps> = ({ eventSlug, tickets }) => {
     const pathname = usePathname()
     const router = useRouter()
 
-    const onClick = () => {
-        router.push(`${pathname}/tickets`)
+    const onClick = async () => {
+        const loadingToast = toast.loading("Loading...")
+        try {
+            const { data, status } = await axios.post(`/transactions/${eventSlug}`);
+            sessionStorage.setItem("activeTrx", data.data.id)
+            toast.dismiss(loadingToast)
+            
+            if (status == 201) router.push(`${pathname}/tickets`)
+        } catch (error) {
+            console.log(error);
+            toast.dismiss(loadingToast)
+            toast.error("Something went wrong... Cannot go to ticket selection")
+        }
     }
 
     const lowestPrice = Math.min(...tickets.map(ticket => ticket.price))
