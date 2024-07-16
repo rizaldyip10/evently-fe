@@ -4,9 +4,11 @@ import { UserProfileType } from '@/constants/type/user-profile';
 import axios from '@/utils/axios';
 import { isAxiosError } from 'axios';
 import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react'
 
 const useUserProfile = () => {
+    const router = useRouter()
     const [profile, setProfile] = useState<UserProfileType | null>(null);
     
     useEffect(() => {
@@ -24,6 +26,7 @@ const useUserProfile = () => {
                 if (isAxiosError(error)) {
                     if (error.response?.status === 401) {
                         signOut()
+                        router.push("/login")
                     }
                 }
                 console.error(error);
@@ -31,7 +34,7 @@ const useUserProfile = () => {
         }
 
         fetchUserProfile()
-    }, [])
+    }, [router])
 
     return { profile }
 }

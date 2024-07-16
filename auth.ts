@@ -45,7 +45,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 useCookie.set("sid", data.token, {
                     httpOnly: true,
                     secure: false,
-                    maxAge: 3600,
+                    maxAge: 60 * 60 * 3,
                     path: "/"
                 })
 

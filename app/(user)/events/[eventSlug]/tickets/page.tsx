@@ -2,13 +2,15 @@ import EventDetailSection from '@/components/pages/transaction/event-detail'
 import TicketList from '@/components/pages/transaction/ticket-list'
 import TransactionBackBtn from '@/components/pages/transaction/transaction-back-btn'
 import { Separator } from '@/components/ui/separator'
+import axios from '@/utils/axios'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
+import toast from 'react-hot-toast'
 
 
 const TicketPage = ({ params }: { params: { eventSlug: string } }) => {
-    const slugToEventName = params.eventSlug.replace("-", " ")
+    
     return (
         <div className='w-full flex flex-col items-center p-5 mb-20 mt-10'>
             <div className='flex flex-col w-full md:max-w-7xl gap-11'>
@@ -18,7 +20,7 @@ const TicketPage = ({ params }: { params: { eventSlug: string } }) => {
                 </div>
                 <Separator className='bg-second-lightest' />
                 <div className='w-full'>
-                    <TicketList />
+                    <TicketList eventSlug={params.eventSlug} />
                 </div>
             </div>
         </div>

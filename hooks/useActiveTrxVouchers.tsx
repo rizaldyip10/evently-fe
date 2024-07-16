@@ -1,20 +1,23 @@
-import { getCityList } from "@/lib/api/getCityList";
-import { useInfiniteQuery } from "@tanstack/react-query";
+"use client"
 
-const useCityList = () => {
+import { VoucherType } from "@/constants/type/voucher-type"
+import { getTrxVouchers } from "@/lib/api/getTrxVouchers"
+import { useInfiniteQuery } from "@tanstack/react-query"
+
+const useActiveTrxVouchers = (eventSlug: string) => {
     const {
-        data: cityList,
+        data: voucherList,
         isLoading,
         error,
         hasNextPage,
         fetchNextPage,
         isFetchingNextPage
     } = useInfiniteQuery({
-        queryKey: ['get-city'],
+        queryKey: ['get-trx-vouchers', eventSlug],
         queryFn: async ({ pageParam }) => {
-            const response = await getCityList(pageParam);
+            const response = await getTrxVouchers(eventSlug, pageParam)
             return {
-                cities: response.content,
+                vouchers: response.content,
                 totalPages: response.totalPages,
                 totalElements: response.totalElements,
                 currentPage: response.pageable.pageNumber
@@ -31,13 +34,13 @@ const useCityList = () => {
     })
 
     return {
-        cities: cityList?.pages.flatMap((page) => page.cities),
+        vouchers: voucherList?.pages.flatMap(page => page.vouchers) as VoucherType[],
         isLoading,
         error,
-        fetchNextPage,
         hasNextPage,
+        fetchNextPage,
         isFetchingNextPage
     }
-};
+}
 
-export default useCityList;
+export default useActiveTrxVouchers
