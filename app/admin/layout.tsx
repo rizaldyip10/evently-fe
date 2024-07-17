@@ -30,7 +30,9 @@ const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
         <div className='w-full h-16 md:h-20 bg-[#FFF] flex items-center border-b border-[#cfcfcf]'>
           <NavbarAdmin />
         </div>
-        { children }
+        <div className='bg-[#FAFAFA] w-full min-h-screen'>
+          { children }
+        </div>
       </div>
     </div>
   )
