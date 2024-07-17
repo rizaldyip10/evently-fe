@@ -14,7 +14,6 @@ const UserNavbarBtn = () => {
         signOut({ callbackUrl: '/' })
     }
     const { profile } = useUserProfile()
-
     return (
         <DropdownMenu>
             <DropdownMenuTrigger className='w-10 h-10 border rounded-full'>

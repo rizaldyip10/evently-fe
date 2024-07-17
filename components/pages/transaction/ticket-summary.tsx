@@ -5,6 +5,9 @@ import { TicketCartType } from '@/constants/type/ticket-cart-type'
 import toast from 'react-hot-toast'
 import axios from '@/utils/axios'
 import { useRouter } from 'next/navigation'
+import { UserSessionProps } from '@/constants/type/user-session-props'
+import { useSession } from 'next-auth/react'
+import { headers } from 'next/headers'
 
 interface TicketSummaryProps {
     ticketCart: TicketCartType[]
@@ -13,6 +16,8 @@ interface TicketSummaryProps {
 
 const TicketSummary: React.FC<TicketSummaryProps> = ({ ticketCart, eventSlug }) => {
     const router = useRouter()
+    const { data: session } = useSession()
+    const user = session?.user as UserSessionProps
 
     const filteredTicketCart = ticketCart.filter(ticket => ticket.amount > 0)
     const trxId = sessionStorage.getItem("activeTrx")
@@ -30,6 +35,10 @@ const TicketSummary: React.FC<TicketSummaryProps> = ({ ticketCart, eventSlug }) 
         try {
             const { data, status } = await axios.put(`/transactions/${eventSlug}/${trxId}`, {
                 ticketList: filteredTicketCart
+            }, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
             })
             console.log(data);
             

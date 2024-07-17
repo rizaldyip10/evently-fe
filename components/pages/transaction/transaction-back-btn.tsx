@@ -7,6 +7,8 @@ import axios from '@/utils/axios'
 import { ArrowLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
+import { UserSessionProps } from '@/constants/type/user-session-props';
+import { useSession } from 'next-auth/react';
 
 interface TransactionBackBtnProps {
     title: string
@@ -18,6 +20,8 @@ const TransactionBackBtn: React.FC<TransactionBackBtnProps> = ({ href, title, de
     const router = useRouter()
     const trxId = sessionStorage.getItem("activeTrx")
     const [showBackConfirmation, setShowBackConfirmation] = useState(false);
+    const { data: session } = useSession()
+    const user = session?.user as UserSessionProps
 
     useEffect(() => {
         const handlePopState = (event: PopStateEvent) => {
@@ -36,7 +40,11 @@ const TransactionBackBtn: React.FC<TransactionBackBtnProps> = ({ href, title, de
     const cancelTransaction = async () => {
         const loadingToast = toast.loading("Cancelling transaction...")
         try {
-            await axios.delete(`transactions/user/${trxId}`);
+            await axios.delete(`transactions/user/${trxId}`, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            });
             sessionStorage.removeItem("activeTrx")
             toast.dismiss(loadingToast)
             toast.success("Transaction cancelled successfully")

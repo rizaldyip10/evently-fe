@@ -1,5 +1,6 @@
 import Footer from '@/components/pages/global/footer'
 import Navbar from '@/components/pages/global/navbar'
+import { getCookiesServer } from '@/utils/server-cookies'
 import React from 'react'
 
 const UserLayout = ({ children }: { children: React.ReactNode }) => {

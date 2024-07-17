@@ -8,10 +8,14 @@ import toast from 'react-hot-toast'
 import useReferralCode from '@/hooks/useReferralCode'
 import axios from '@/utils/axios'
 import { useQueryClient } from '@tanstack/react-query'
+import { useSession } from 'next-auth/react'
+import { UserSessionProps } from '@/constants/type/user-session-props'
 
 const ReferralCode = () => {
     const { referralCode, isLoading, error } = useReferralCode()
     const queryClient = useQueryClient()
+    const { data: session } = useSession()
+    const user = session?.user as UserSessionProps
 
     if (isLoading) return <div>Loading...</div>
 
@@ -25,7 +29,11 @@ const ReferralCode = () => {
     const handleGenerateCode = async () => {
         const loadingToast = toast.loading("Generating your code...")
         try {
-            await axios.post("/users/referral-code")
+            await axios.post("/users/referral-code", {}, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            })
             queryClient.invalidateQueries({ queryKey: ['get-referral-code'] })
             toast.dismiss(loadingToast)
             toast.success("Referral code generated!")

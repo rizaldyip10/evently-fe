@@ -12,6 +12,7 @@ import { whiteSpaceRegex } from '@/lib/whitespace-regex'
 import axios from '@/utils/axios'
 import { useSession } from 'next-auth/react'
 import { useQueryClient } from '@tanstack/react-query'
+import { UserSessionProps } from '@/constants/type/user-session-props'
 
 interface ReviewInputProps {
     eventSlug: string
@@ -19,7 +20,8 @@ interface ReviewInputProps {
 
 const ReviewInput: React.FC<ReviewInputProps> = ({ eventSlug }) => {
     const queryClient = useQueryClient()
-    const { data: session } = useSession();
+    const { data: session } = useSession()
+    const user = session?.user as UserSessionProps
     
     if (!session) return null;
 
@@ -36,7 +38,11 @@ const ReviewInput: React.FC<ReviewInputProps> = ({ eventSlug }) => {
     const onReviewSubmit = async (value: FormikValues) => {
         const loadingToast = toast.loading("Submitting review...");
         try {
-            const response = await axios.post(`/review/${eventSlug}`, value)
+            const response = await axios.post(`/review/${eventSlug}`, value, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            })
             console.log(response);
             
             toast.dismiss(loadingToast)

@@ -7,6 +7,8 @@ import { usePathname, useRouter } from 'next/navigation'
 import axios from '@/utils/axios'
 import React from 'react'
 import toast from 'react-hot-toast'
+import { useSession } from 'next-auth/react'
+import { UserSessionProps } from '@/constants/type/user-session-props'
 
 interface EventPriceMobileProps {
     tickets: TicketType[]
@@ -16,11 +18,17 @@ interface EventPriceMobileProps {
 const EventPriceMobile: React.FC<EventPriceMobileProps> = ({ eventSlug, tickets }) => {
     const pathname = usePathname()
     const router = useRouter()
+    const { data: session } = useSession()
+    const user = session?.user as UserSessionProps
 
     const onClick = async () => {
         const loadingToast = toast.loading("Loading...")
         try {
-            const { data, status } = await axios.post(`/transactions/${eventSlug}`);
+            const { data, status } = await axios.post(`/transactions/${eventSlug}`, {}, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            });
             sessionStorage.setItem("activeTrx", data.data.id)
             toast.dismiss(loadingToast)
             

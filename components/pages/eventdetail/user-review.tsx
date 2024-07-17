@@ -32,15 +32,15 @@ const UserReview: React.FC<UserReviewProps> = ({ eventSlug }) => {
         ))
       }
       {
-        // hasNextPage &&
-        <div className='w-full flex justify-center'>
-          <Button
-            className='border border-primary-default rounded-[4px] text-primary-default w-1/5'
-            onClick={() => fetchNextPage()}
-          >
-            See more
-          </Button>
-        </div>
+        hasNextPage &&
+          <div className='w-full flex justify-center'>
+            <Button
+              className='border border-primary-default rounded-[4px] text-primary-default w-1/5'
+              onClick={() => fetchNextPage()}
+            >
+              See more
+            </Button>
+          </div>
       }
     </div>
   )

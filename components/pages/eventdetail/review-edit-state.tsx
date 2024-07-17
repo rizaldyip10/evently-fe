@@ -9,6 +9,8 @@ import axios from '@/utils/axios'
 import toast from 'react-hot-toast'
 import { UserReviewType } from '@/constants/type/user-review-type'
 import { useQueryClient } from '@tanstack/react-query'
+import { useSession } from 'next-auth/react'
+import { UserSessionProps } from '@/constants/type/user-session-props'
 
 interface ReviewEditStateProps {
     setEditState: React.Dispatch<React.SetStateAction<boolean>>
@@ -17,6 +19,9 @@ interface ReviewEditStateProps {
 
 const ReviewEditState: React.FC<ReviewEditStateProps> = ({ review, setEditState }) => {
     const queryClient = useQueryClient()
+    const { data: session } = useSession()
+    const user = session?.user as UserSessionProps
+
     const reviewSchema = Yup.object().shape({
         review: Yup.string().min(3, "Min 3 characters").max(140, "Max 140 characters").required("Your review is required"),
         rating: Yup.number().min(1, "You have to give rating for the event").max(5, "Max rating is 5").required("Rating is required")
@@ -34,7 +39,11 @@ const ReviewEditState: React.FC<ReviewEditStateProps> = ({ review, setEditState 
     const onReviewSubmit = async (value: FormikValues) => {
         const loadingToast = toast.loading("Updating your review...")
         try {
-            const response = await axios.put(`/review/user-review/${review.id}`, value)
+            const response = await axios.put(`/review/user-review/${review.id}`, value, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            })
             console.log(response);
             toast.dismiss(loadingToast)
             toast.success("Review updated")

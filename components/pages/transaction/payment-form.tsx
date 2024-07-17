@@ -12,6 +12,8 @@ import axios from '@/utils/axios'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import useUserProfile from '@/hooks/useUserProfile'
+import { useSession } from 'next-auth/react'
+import { UserSessionProps } from '@/constants/type/user-session-props'
 
 interface PaymentFormProps {
     eventSlug: string
@@ -21,6 +23,8 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ eventSlug }) => {
     const [selectedVoucher, setSelectedVoucher] = useState<UsedVoucherType[]>([])
     const [paymentMethod, setPaymentMethod] = useState<string>('')
     const [isPointUsed, setIsPointUsed] = useState<boolean>(false)
+    const { data: session } = useSession()
+    const user = session?.user as UserSessionProps
     const { profile } = useUserProfile()
     console.log('data', {
         paymentMethod,
@@ -28,7 +32,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ eventSlug }) => {
         selectedVoucher
     });
 
-    const userPoint = profile?.points && profile?.points.points
+    const userPoint = profile?.points && profile?.points.point
     
     
     const router = useRouter()
@@ -39,16 +43,13 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ eventSlug }) => {
             const existingVoucherIndex = prev.findIndex(v => v.name === voucher.name);
             if (existingVoucherIndex !== -1) {
                 if (voucher.discount === 0) {
-                    // Remove the voucher if the discount is 0 (unchecked)
                     return prev.filter(v => v.name !== voucher.name);
                 } else {
-                    // Update the existing voucher
                     const newVouchers = [...prev];
                     newVouchers[existingVoucherIndex] = voucher;
                     return newVouchers;
                 }
             } else {
-                // Add the new voucher
                 return [...prev, voucher];
             }
         });
@@ -63,7 +64,11 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ eventSlug }) => {
                 vouchers: selectedVoucher
             }
 
-            const response = await axios.patch(`/transactions/${eventSlug}/${trxId}`, dataToSend)
+            const response = await axios.patch(`/transactions/${eventSlug}/${trxId}`, dataToSend, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            })
             console.log(response);
             toast.dismiss(loadingToast)
             toast.success("Payment complete!")
