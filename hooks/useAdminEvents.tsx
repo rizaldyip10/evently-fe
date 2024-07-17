@@ -21,8 +21,6 @@ const useAdminEvents = () => {
         queryKey: ['get-admin-events'],
         queryFn: async () => {
             const response = await getAdminEventList(user.token)
-            console.log(response);
-            
             return {
                 events: response.content,
                 totalPages: response.totalPages,

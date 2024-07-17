@@ -38,7 +38,6 @@ const ReferralCode = () => {
             toast.dismiss(loadingToast)
             toast.success("Referral code generated!")
         } catch (error) {
-            console.log(error);
             toast.dismiss(loadingToast)
             toast.error("Failed to generate referral code")
         }

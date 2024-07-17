@@ -33,12 +33,10 @@ const ReviewMenu: React.FC<ReviewMenuProps> = ({ reviewId, userEmail, setEditSta
                     Authorization: `Bearer ${user.token}`
                 }
             })
-            console.log(response);
             toast.dismiss(toastLoading)
             toast.success("Review deleted")
             queryClient.invalidateQueries({ queryKey: ["get-event-reviews"] })
         } catch (error) {
-            console.log(error);
             toast.dismiss(toastLoading)
             toast.error("Failed to delete your review")
         }

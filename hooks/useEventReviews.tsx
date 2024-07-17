@@ -15,8 +15,6 @@ const UseEventReviews = (eventSlug: string) => {
         queryKey: ["get-event-reviews"],
         queryFn: async () => {
             const response = await getEventReview(eventSlug);
-            console.log(response);
-            
             return {
                 reviews: response.content,
                 totalPages: response.totalPages,

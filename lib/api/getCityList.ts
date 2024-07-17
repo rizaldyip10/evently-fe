@@ -10,7 +10,6 @@ export const getCityList = async (page: number) => {
 
         return data.data
     } catch (error) {
-        console.log(error);
         throw error;
     }
 }

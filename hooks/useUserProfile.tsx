@@ -22,9 +22,6 @@ const useUserProfile = () => {
         })
     })
 
-    console.log(data);
-    
-
     return {
         profile: data?.data.data as UserProfileType,
         isLoading,

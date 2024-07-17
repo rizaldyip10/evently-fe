@@ -8,19 +8,20 @@ import InputField from "@/components/pages/global/inputfield";
 import * as Yup from "yup";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const LoginForm: React.FC = () => {
+  const router = useRouter()
   const onLogin = async (value: FormikValues) => {
     try {
       await signIn("credentials", {
         username: value.email,
         password: value.password,
-        redirect: true,
-        callbackUrl: "/"
+        redirect: false
       })
       toast.success("Login success!")
+      router.push("/")
     } catch (error: any) {
-      console.log(error);
       const errorMsg = error?.message || "Oops... Something went wrong"
       toast.error(errorMsg)
     }

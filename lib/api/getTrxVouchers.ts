@@ -13,7 +13,6 @@ export const getTrxVouchers = async (eventSlug: string, token: string, page?: nu
 
         return data.data
     } catch (error) {
-        console.log(error);
         throw error
     }
 }

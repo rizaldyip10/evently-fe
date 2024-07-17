@@ -11,7 +11,6 @@ export const getEventList = async (filters?: Partial<SearchQueryType>) => {
 
         return data.data;
     } catch (error: any) {
-        console.log(error);
         throw error;
     };
 }

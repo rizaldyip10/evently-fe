@@ -12,7 +12,6 @@ export const getTicketList = async (eventSlug: string, token: string) => {
 
         return data.data
     } catch (error) {
-        console.log(error);
         return error
     }
 }
