@@ -44,13 +44,11 @@ const ReviewEditState: React.FC<ReviewEditStateProps> = ({ review, setEditState 
                     Authorization: `Bearer ${user.token}`
                 }
             })
-            console.log(response);
             toast.dismiss(loadingToast)
             toast.success("Review updated")
             queryClient.invalidateQueries({ queryKey: ["get-event-reviews"] })
             onClick()
         } catch (error) {
-            console.log(error);
             toast.dismiss(loadingToast)
             toast.error("Failed to update your review")
         }

@@ -27,11 +27,6 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ eventSlug }) => {
     const { data: session } = useSession()
     const user = session?.user as UserSessionProps
     const { profile } = useUserProfile()
-    console.log('data', {
-        paymentMethod,
-        isPointUsed,
-        selectedVoucher
-    });
 
     const userPoint = profile?.points && profile?.points.point
     
@@ -74,13 +69,11 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ eventSlug }) => {
                     Authorization: `Bearer ${user.token}`
                 }
             })
-            console.log(response);
             sessionStorage.removeItem("activeTrx")
             toast.dismiss(loadingToast)
             toast.success("Payment complete!")
             router.push("/complete")
         } catch (error) {
-            console.log(error);
             toast.dismiss(loadingToast)
             toast.error("Payment failed, something went wrong")
         }

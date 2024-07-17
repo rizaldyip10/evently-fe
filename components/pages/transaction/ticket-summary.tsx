@@ -40,7 +40,6 @@ const TicketSummary: React.FC<TicketSummaryProps> = ({ ticketCart, eventSlug }) 
                     Authorization: `Bearer ${user.token}`
                 }
             })
-            console.log(data);
             
             if (status !== 200) throw new Error("Failed to submit tickets")
 
@@ -48,7 +47,6 @@ const TicketSummary: React.FC<TicketSummaryProps> = ({ ticketCart, eventSlug }) 
             toast.success("Your tickets have been submitted!")
             router.push(`/events/${eventSlug}/payment`)
         } catch (error) {
-            console.log(error);
             toast.dismiss(loadingToast)
             toast.error("Failed to submit your ticket")
         }

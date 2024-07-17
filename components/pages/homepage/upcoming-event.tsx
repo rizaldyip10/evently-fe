@@ -11,7 +11,6 @@ import useSearchFilters from '@/hooks/useSearchFilter'
 const UpcomingEvent: React.FC = () => {
   const { filters } = useSearchFilters();
   const { events } = useEventList(filters);
-  console.log(events);
 
   const router = useRouter();
   return (

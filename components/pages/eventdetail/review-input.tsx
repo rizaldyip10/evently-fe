@@ -43,13 +43,10 @@ const ReviewInput: React.FC<ReviewInputProps> = ({ eventSlug }) => {
                     Authorization: `Bearer ${user.token}`
                 }
             })
-            console.log(response);
-            
             toast.dismiss(loadingToast)
             toast.success("Review submitted")
             queryClient.invalidateQueries({ queryKey: ["get-event-reviews"] })
         } catch (error) {
-            console.log(error);
             toast.dismiss(loadingToast);
             toast.error("Failed to submit your review")
         }

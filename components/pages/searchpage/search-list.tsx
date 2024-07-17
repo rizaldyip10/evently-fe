@@ -22,8 +22,6 @@ const SearchList = () => {
         fetchNextPage
     } = useEventList(filters);
 
-    console.log(events);
-
     return (
         <div className='w-full px-6 md:px-10 flex flex-col justify-start gap-5 md:gap-20'>
             <EventSearch />
@@ -39,7 +37,10 @@ const SearchList = () => {
             {
                 hasNextPage &&
                     <div className='w-full flex justify-center'>
-                        <Button className='border border-primary-default bg-primary-white rounded-[4px] w-1/4 text-primary-default'>
+                        <Button 
+                            className='border border-primary-default bg-primary-white rounded-[4px] w-1/4 text-primary-default'
+                            onClick={() => fetchNextPage()}
+                        >
                             See more
                         </Button>
                     </div>

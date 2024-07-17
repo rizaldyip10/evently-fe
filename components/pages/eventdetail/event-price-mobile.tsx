@@ -34,7 +34,6 @@ const EventPriceMobile: React.FC<EventPriceMobileProps> = ({ eventSlug, tickets 
             
             if (status == 201) router.push(`${pathname}/tickets`)
         } catch (error) {
-            console.log(error);
             toast.dismiss(loadingToast)
             toast.error("Something went wrong... Cannot go to ticket selection")
         }

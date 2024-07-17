@@ -8,7 +8,6 @@ export const getEventReview = async (eventSlug: string) => {
 
         return data.data
     } catch (error) {
-        console.log(error);
         throw error
     }
 }

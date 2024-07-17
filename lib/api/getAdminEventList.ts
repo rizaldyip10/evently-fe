@@ -12,7 +12,6 @@ export const getAdminEventList = async (token: string) => {
 
         return data.data
     } catch (error) {
-        console.log(error);
         throw error
     }
 }

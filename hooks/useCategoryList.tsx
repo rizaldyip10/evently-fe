@@ -15,15 +15,12 @@ const useCategoryList = () => {
         const fetchCategoryList = async () => {
             try {
                 const { data, status } = await axios.get("/categories");
-                console.log(data);
                 
-
                 if (status != 200) throw new Error("Failed to fetch category list");
 
                 setCategories(data.content);
                 setLoading(false);
             } catch (error) {
-                console.log(error);
                 setError(error);
                 setLoading(false);
             };
