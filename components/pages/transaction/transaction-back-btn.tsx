@@ -5,10 +5,11 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import axios from '@/utils/axios'
 import { ArrowLeft } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import { UserSessionProps } from '@/constants/type/user-session-props';
 import { useSession } from 'next-auth/react';
+import { USER_DEFAULT_REDIRECT } from '@/constants/routes/web-routes';
 
 interface TransactionBackBtnProps {
     title: string
@@ -22,6 +23,10 @@ const TransactionBackBtn: React.FC<TransactionBackBtnProps> = ({ href, title, de
     const [showBackConfirmation, setShowBackConfirmation] = useState(false);
     const { data: session } = useSession()
     const user = session?.user as UserSessionProps
+
+    if (!trxId) {
+        return redirect(USER_DEFAULT_REDIRECT)
+    }
 
     useEffect(() => {
         const handlePopState = (event: PopStateEvent) => {
