@@ -10,7 +10,6 @@ import UserNavbarBtn from './user-navbar-btn'
 
 const Navbar: React.FC = () => {
   const { data: session } = useSession()
-  
   return (
     <div className='w-full flex justify-between items-center px-8 md:px-16'>
       <Link href="/">

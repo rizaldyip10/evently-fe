@@ -5,9 +5,6 @@ import { getCookiesServer } from "@/utils/server-cookies";
 import { Suspense } from "react";
 
 export default function Home() {
-  const cookie = getCookiesServer("sid")
-  console.log(cookie);
-  
   return (
     <main className="w-full pb-10 flex flex-col items-center">
       <Suspense>

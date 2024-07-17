@@ -1,5 +1,5 @@
 interface UserPointType {
-    points: number
+    point: number
 }
 
 interface RoleType {

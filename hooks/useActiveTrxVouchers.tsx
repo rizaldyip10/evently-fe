@@ -1,10 +1,14 @@
 "use client"
 
+import { UserSessionProps } from "@/constants/type/user-session-props"
 import { VoucherType } from "@/constants/type/voucher-type"
 import { getTrxVouchers } from "@/lib/api/getTrxVouchers"
 import { useInfiniteQuery } from "@tanstack/react-query"
+import { useSession } from "next-auth/react"
 
 const useActiveTrxVouchers = (eventSlug: string) => {
+    const { data: session } = useSession()
+    const user = session?.user as UserSessionProps
     const {
         data: voucherList,
         isLoading,
@@ -15,7 +19,7 @@ const useActiveTrxVouchers = (eventSlug: string) => {
     } = useInfiniteQuery({
         queryKey: ['get-trx-vouchers', eventSlug],
         queryFn: async ({ pageParam }) => {
-            const response = await getTrxVouchers(eventSlug, pageParam)
+            const response = await getTrxVouchers(eventSlug, user.token, pageParam)
             return {
                 vouchers: response.content,
                 totalPages: response.totalPages,

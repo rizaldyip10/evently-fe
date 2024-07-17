@@ -111,7 +111,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ selectedVouchers, isPointUs
             }
             <div className='w-full flex items-start justify-between pb-3'>
                 <h1 className='font-medium font-general-sans'>Total</h1>
-                <h1 className='font-general-sans font-bold'>{finalPrice}</h1>
+                <h1 className='font-general-sans font-bold'>{currencyFormatter(finalPrice)}</h1>
             </div>
         </div>
     )

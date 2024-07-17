@@ -4,6 +4,7 @@ import Credentials from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt";
 import axios from "./utils/axios";
 import { cookies } from "next/headers";
+import { UserSessionProps } from "./constants/type/user-session-props";
 
 interface DecodedTokenProps {
     iss: string
@@ -12,12 +13,6 @@ interface DecodedTokenProps {
     sub: string
     scope: string
     userId: number
-}
-
-interface UserSessionProps {
-    id: string
-    email: string
-    role: string
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -45,7 +40,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 useCookie.set("sid", data.token, {
                     httpOnly: true,
                     secure: false,
-                    maxAge: 60 * 60 * 3,
+                    maxAge: 3600,
                     path: "/"
                 })
 
@@ -53,7 +48,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 const returnedValue: UserSessionProps = {
                     id: decodedJwt.userId.toString(),
                     email: decodedJwt.sub,
-                    role: decodedJwt.scope
+                    role: decodedJwt.scope,
+                    token: data.token
                 }
 
                 return returnedValue
@@ -64,22 +60,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         signIn: "/login"
     },
     callbacks: {
-        async jwt({ token, user }: { token: JWT, user: User }) {
+        async jwt({ token, user }: { token: JWT, user: User & { role?: string, token?: string } }) {
             if (user) {
                 token.id = user.id
                 token.email = user.email
-                // token.role = user.role
+                token.role = user.role
+                token.token = user.token
             }
 
             return token
         },
         async session({ session, token }: { session: any, token: JWT }) {
-            console.log(session.user);
-            
             session.user = {
                 id: token.id,
                 email: token.email,
-                // role: token.role
+                role: token.role,
+                token: token.token
             }
             return session
         }

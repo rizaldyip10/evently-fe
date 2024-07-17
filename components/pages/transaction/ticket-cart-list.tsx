@@ -1,6 +1,8 @@
 import { TicketCartType } from '@/constants/type/ticket-cart-type';
+import { UserSessionProps } from '@/constants/type/user-session-props';
 import axios from '@/utils/axios';
 import { currencyFormatter } from '@/utils/currency-formatter';
+import { useSession } from 'next-auth/react';
 import React from 'react';
 import toast from 'react-hot-toast';
 
@@ -10,20 +12,6 @@ interface TicketCartListProps {
 
 const TicketCartList: React.FC<TicketCartListProps> = ({ ticketCart }) => {
     const filteredTicketCart = ticketCart.filter(ticket => ticket.amount > 0)
-    const trxId = sessionStorage.getItem("activeTrx")
-
-    const onSubmit = async () => {
-        const loadingToast = toast.loading("Submitting your tickets...")
-        try {
-            const { data, status } = await axios.put(`/transaction/eventSlug/${trxId}`,{
-                ticketList: filteredTicketCart
-            })
-        } catch (error) {
-            console.log(error);
-            toast.dismiss(loadingToast)
-            toast.error("Failed to submit your ticket")
-        }
-    }
     return (
         <div className='flex w-full justify-center'>
             <table className='border-collapse border-spacing-4 text-primary-white'>

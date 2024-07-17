@@ -6,6 +6,7 @@ import React from 'react'
 import toast from 'react-hot-toast'
 import { useSession } from 'next-auth/react'
 import { useQueryClient } from '@tanstack/react-query'
+import { UserSessionProps } from '@/constants/type/user-session-props'
 
 interface ReviewMenuProps {
     setEditState: React.Dispatch<React.SetStateAction<boolean>>
@@ -15,9 +16,10 @@ interface ReviewMenuProps {
 
 const ReviewMenu: React.FC<ReviewMenuProps> = ({ reviewId, userEmail, setEditState }) => {
     const { data: session } = useSession()
+    const user = session?.user as UserSessionProps
     const queryClient = useQueryClient()
 
-    if (session?.user?.email != userEmail) return null
+    if (user.email != userEmail) return null
 
     const onClick = () => {
         setEditState(true)
@@ -26,7 +28,11 @@ const ReviewMenu: React.FC<ReviewMenuProps> = ({ reviewId, userEmail, setEditSta
     const onDelete = async () => {
         const toastLoading = toast.loading("Deleteing review")
         try {
-            const response = await axios.delete(`/review/user-review/${reviewId}`)
+            const response = await axios.delete(`/review/user-review/${reviewId}`, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            })
             console.log(response);
             toast.dismiss(toastLoading)
             toast.success("Review deleted")
