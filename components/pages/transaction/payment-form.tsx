@@ -9,11 +9,12 @@ import OrderSummary from './order-summary'
 import { UsedVoucherType } from '@/constants/type/used-voucher-type'
 import toast from 'react-hot-toast'
 import axios from '@/utils/axios'
-import { useRouter } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import useUserProfile from '@/hooks/useUserProfile'
 import { useSession } from 'next-auth/react'
 import { UserSessionProps } from '@/constants/type/user-session-props'
+import { USER_DEFAULT_REDIRECT } from '@/constants/routes/web-routes'
 
 interface PaymentFormProps {
     eventSlug: string
@@ -37,6 +38,10 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ eventSlug }) => {
     
     const router = useRouter()
     const trxId = sessionStorage.getItem("activeTrx")
+
+    if (!trxId) {
+        return redirect(USER_DEFAULT_REDIRECT)
+    }
 
     const handleVoucherSelect = (voucher: UsedVoucherType) => {
         setSelectedVoucher(prev => {
@@ -70,6 +75,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ eventSlug }) => {
                 }
             })
             console.log(response);
+            sessionStorage.removeItem("activeTrx")
             toast.dismiss(loadingToast)
             toast.success("Payment complete!")
             router.push("/complete")

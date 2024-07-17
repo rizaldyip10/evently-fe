@@ -5,10 +5,11 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import axios from '@/utils/axios'
 import { ArrowLeft } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import { UserSessionProps } from '@/constants/type/user-session-props';
 import { useSession } from 'next-auth/react';
+import { USER_DEFAULT_REDIRECT } from '@/constants/routes/web-routes';
 
 interface TransactionBackBtnProps {
     title: string
@@ -18,12 +19,19 @@ interface TransactionBackBtnProps {
 
 const TransactionBackBtn: React.FC<TransactionBackBtnProps> = ({ href, title, desc }) => {
     const router = useRouter()
-    const trxId = sessionStorage.getItem("activeTrx")
+    const [trxId, setTrxId] = useState<string | null>(null);
     const [showBackConfirmation, setShowBackConfirmation] = useState(false);
     const { data: session } = useSession()
     const user = session?.user as UserSessionProps
 
     useEffect(() => {
+        const storedTrxId = sessionStorage.getItem("activeTrx");
+        if (!storedTrxId) {
+            router.push(USER_DEFAULT_REDIRECT);
+            return;
+        }
+        setTrxId(storedTrxId);
+
         const handlePopState = (event: PopStateEvent) => {
             event.preventDefault();
             setShowBackConfirmation(true);
@@ -35,9 +43,11 @@ const TransactionBackBtn: React.FC<TransactionBackBtnProps> = ({ href, title, de
         return () => {
             window.removeEventListener('popstate', handlePopState);
         };
-    }, []);
+    }, [router]);
 
     const cancelTransaction = async () => {
+        if (!trxId) return;
+
         const loadingToast = toast.loading("Cancelling transaction...")
         try {
             await axios.delete(`transactions/user/${trxId}`, {
@@ -65,6 +75,10 @@ const TransactionBackBtn: React.FC<TransactionBackBtnProps> = ({ href, title, de
         setShowBackConfirmation(false);
         window.history.pushState(null, '', window.location.pathname);
     };
+
+    if (!trxId) {
+        return redirect(USER_DEFAULT_REDIRECT)
+    }
 
     return (
         <>
