@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import SidebarMobileBtn from './sidebar-mobile-btn'
+import UserNavbarBtn from '../global/user-navbar-btn'
 
 const NavbarAdmin = () => {
     return (
@@ -13,9 +14,7 @@ const NavbarAdmin = () => {
             </div>
             <div className='flex items-center gap-2 ml-auto'>
                 {/* <p>+ Event</p> */}
-                <div className='w-6 h-6 md:w-10 md:h-10 rounded-full border flex items-center justify-center'>
-                    U
-                </div>
+                <UserNavbarBtn />
             </div>
         </div>
     )

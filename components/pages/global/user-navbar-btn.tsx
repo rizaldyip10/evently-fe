@@ -1,3 +1,5 @@
+"use client"
+
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import useUserProfile from '@/hooks/useUserProfile'
 import { removeCookieClient } from '@/utils/client-cookies'
@@ -27,21 +29,39 @@ const UserNavbarBtn = () => {
                 <DropdownMenuLabel>{ profile?.name }</DropdownMenuLabel>
                 <DropdownMenuSeparator className='bg-second-lightest' />
                 <DropdownMenuGroup className='flex flex-col gap-1 py-2'>
-                    <DropdownMenuItem className='flex items-center gap-2 hover:cursor-pointer hover:bg-primary-lightest' onClick={() => router.push("/profile")}>
-                        <User className='w-4 h-4' />
-                        <p className='text-sm'>Profile</p>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className='flex items-center gap-2 hover:cursor-pointer hover:bg-primary-lightest' onClick={() => router.push("/profile/referral")}>
-                        <BadgeCent className='w-4 h-4' />
-                        <p className='text-sm'>Referral Code</p>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className='flex items-center gap-2 hover:cursor-pointer hover:bg-primary-lightest' onClick={() => router.push("/profile/orders")}>
-                        <ReceiptText className='w-4 h-4' />
-                        <p className='text-sm'>My Orders</p>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className='text-error hover:cursor-pointer hover:bg-primary-lightest hover:text-error' onClick={onLogout}>
-                        Logout
-                    </DropdownMenuItem>
+                    {
+                        profile?.role.name == "USER" ?
+                        <>
+                            <DropdownMenuItem className='flex items-center gap-2 hover:cursor-pointer hover:bg-primary-lightest' onClick={() => router.push("/profile")}>
+                                <User className='w-4 h-4' />
+                                <p className='text-sm'>Profile</p>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className='flex items-center gap-2 hover:cursor-pointer hover:bg-primary-lightest' onClick={() => router.push("/profile/referral")}>
+                                <BadgeCent className='w-4 h-4' />
+                                <p className='text-sm'>Referral Code</p>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className='flex items-center gap-2 hover:cursor-pointer hover:bg-primary-lightest' onClick={() => router.push("/profile/orders")}>
+                                <ReceiptText className='w-4 h-4' />
+                                <p className='text-sm'>My Orders</p>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className='text-error hover:cursor-pointer hover:bg-primary-lightest hover:text-error' onClick={onLogout}>
+                                Logout
+                            </DropdownMenuItem>
+                        </> :
+                        <>
+                        <DropdownMenuItem className='flex items-center gap-2 hover:cursor-pointer hover:bg-primary-lightest' onClick={() => router.push("/profile")}>
+                            <User className='w-4 h-4' />
+                            <p className='text-sm'>Profile</p>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className='flex items-center gap-2 hover:cursor-pointer hover:bg-primary-lightest' onClick={() => router.push("/profile/referral")}>
+                            <BadgeCent className='w-4 h-4' />
+                            <p className='text-sm'>Settings</p>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className='text-error hover:cursor-pointer hover:bg-primary-lightest hover:text-error' onClick={onLogout}>
+                            Logout
+                        </DropdownMenuItem>
+                    </>
+                    }
                 </DropdownMenuGroup>
             </DropdownMenuContent>
         </DropdownMenu>
