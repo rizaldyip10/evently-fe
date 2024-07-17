@@ -12,6 +12,7 @@ interface inputFieldProps{
     type: string
     id?: string
     hidden?: boolean
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 

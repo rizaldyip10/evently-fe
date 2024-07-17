@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -12,9 +12,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import DashboardCard from "@/components/pages/admin/dashboard-card";
-
-import TitleDashboard from "@/components/pages/admin/title-dashboard";
 import { Badge } from "@/components/ui/badge";
+import axios from "@/utils/axios";
 
 const TableHeads = [
   "User name",
@@ -48,52 +47,66 @@ const TableBody = [
   },
 ];
 
-const eventCategory = [
-  "Music",
-  "Movies",
-  "Arts",
-  "Internationals",
-  "Conferences",
-];
-
 const paymentStatus = ["Success", "Pending", "Fail"];
 
 const AdminOrderPage = () => {
   const [filteredTableBody, setFilteredTableBody] = useState(TableBody);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedPaymentStatus, setSelectedPaymentStatus] = useState<string>("All");
+
+  const getData = async () => {
+    try {
+      const response = await axios.get(
+        "https://evently-be-smlkc3wkza-et.a.run.app/api/v1/transactions/event/dwp-2024"
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    const fetchEventList = async () => {
+      try {
+        setLoading(true);
+        const data = await getData();
+        setFilteredTableBody(data);
+        setError(null);
+      } catch (err) {
+        setError("Failed to fetch users");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEventList();
+  }, []);
+
+  useEffect(() => {
+    if (selectedPaymentStatus === "All") {
+      setFilteredTableBody(TableBody);
+    } else {
+      const filteredData = TableBody.filter(
+        (item) =>
+          item.paymentstatus.toLowerCase() === selectedPaymentStatus.toLowerCase()
+      );
+      setFilteredTableBody(filteredData);
+    }
+  }, [selectedPaymentStatus]);
+
+  const handlePaymentStatusChange = (value: string) => {
+    setSelectedPaymentStatus(value);
+  };
+
   return (
     <div className="w-full px-20 flex flex-col gap-4 bg-blue-50 h-screen">
       {/* Dashboard card for Order */}
-      <div className="w-full flex flex-row gap-4 mt-10 ">
-        <DashboardCard title="Total Order" number="5" trend="This month +20%" />
-        <DashboardCard
-          title="Success Payment"
-          number="5"
-          trend="This month +20%"
-        />
-      </div>
 
       {/* Dashboard filter */}
       <div className="filter w-full flex flex-row mt-4 gap-4">
-        <Select>
-          <SelectTrigger className="w-[180px] bg-primary-white border-slate-300 rounded-[8px]">
-            <SelectValue placeholder="Event category" />
-          </SelectTrigger>
-          <SelectContent className="bg-primary-white rounded-[8px] shadow-md border-slate-300">
-            <SelectGroup>
-              <SelectLabel>By Category</SelectLabel>
-              <SelectItem value="All">All</SelectItem>
-              {eventCategory.map((category, index) => (
-                <SelectItem key={index} value={category.toLocaleLowerCase()}>
-                  {category}
-                </SelectItem>
-              ))}
-              <SelectItem value="Music">Music</SelectItem>
-              <SelectItem value="Movie">Movie</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-
-        <Select>
+        <Select onValueChange={handlePaymentStatusChange}>
           <SelectTrigger className="w-[180px] bg-primary-white border-slate-300 rounded-[8px]">
             <SelectValue placeholder="Payment status" />
           </SelectTrigger>
@@ -112,7 +125,6 @@ const AdminOrderPage = () => {
       </div>
 
       {/* Table list view */}
-
       <div>
         <table className="w-full pt-2 rounded-[8px] border border-slate-100">
           <thead className="bg-blue-50 border-b border-slate-100">
@@ -136,7 +148,7 @@ const AdminOrderPage = () => {
                         ? "default"
                         : tr.paymentstatus.toLowerCase() === "pending"
                         ? "error"
-                        : "secondary" // for 'pending' or any other status
+                        : "secondary" // for 'fail' or any other status
                     }
                   >
                     {tr.paymentstatus}

@@ -92,7 +92,7 @@ const AdminHomePage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center px-20 py-5 bg-blue-50 h-screen">
+    <div className="flex flex-col items-center py-5 bg-blue-50 h-screen w-full px-10">
       <div className="w-full flex flex-row justify-between">
         <div className="flex flex-col gap-4">
           <h1 className="font-semibold text-3xl">Welcome back, Purwa Widodo</h1>
@@ -106,7 +106,7 @@ const AdminHomePage = () => {
         <div className="bg-white flex justify-between w-full rounded-[8px] flex-col gap-4">
           <div className="flex flex-row justify-between w-full"></div>
 
-          <div className="w-full items-center flex flex-row gap-4 justify-between h-fit">
+          <div className="w-full items-center flex flex-col gap-4 justify-between h-fit md:flex-col lg:flex-row">
             <DashboardCard
               title="Total Event"
               number="5"
@@ -252,7 +252,7 @@ const AdminHomePage = () => {
           <PaginationLink href="#">1</PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink href="#" isActive className="bg-primary-default">
+          <PaginationLink href="#" isActive className="bg-primary-white rounded-[8px] border-none">
             2
           </PaginationLink>
         </PaginationItem>

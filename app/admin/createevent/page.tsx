@@ -1,13 +1,12 @@
-"use client";
+"use client"
 import React, { useState } from "react";
 import { Field, Form, Formik } from "formik";
-import DatePicker from "@/components/pages/homepage/date-picker";
-import plus from "@/assets/icons/plus-circle.svg";
 import Image from "next/image";
+import createbg from "@/assets/image/createeventbg.jpg";
 import InputField from "@/components/pages/global/inputfield";
 
+import plus from "@/assets/icons/plus-circle.svg";
 import timeicon from "@/assets/icons/clock.svg";
-import createbg from "@/assets/image/createeventbg.jpg";
 import {
   Select,
   SelectContent,
@@ -17,16 +16,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { uploadImageToCloudinary } from "@/app/utils/UploadFileCloudinary";
 
 const Page = () => {
   const [date, setDate] = useState<Date>();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const handleToggle = () => {
-    setIsOpen(!isOpen);
-  };
-
   const [startTime, setStartTime] = useState<string>("");
   const [endTime, setEndTime] = useState<string>("");
+  const [imagePreview, setImagePreview] = useState<string>("");
 
   const handleStartTimeChange = (value: string) => {
     setStartTime(value);
@@ -87,33 +83,43 @@ const Page = () => {
     "23:30",
   ];
 
-  const audiance = ["+18 Audiance Only", "Everyone"];
+  const audience = ["+18 Audience Only", "Everyone"];
 
   return (
-    <div className="flex flex-col gap-4 px-10">
-      <div className="flex flex-col justify-between items-start bg-primary-white border border-slate-400 p-5 mt-4 rounded-[12px] mx-8 hover:border-primary-default cursor-pointer">
+    <div className="flex flex-col gap-4 px-4 sm:px-6 md:px-8 lg:px-10">
+      {/* Event Cover Upload */}
+      <div className="flex flex-col justify-between items-start bg-primary-white border border-slate-400 p-3 sm:p-4 md:p-5 mt-4 rounded-[12px] mx-2 sm:mx-4 md:mx-6 lg:mx-8 hover:border-primary-default cursor-pointer">
         <div className="w-full h-full bg-primary-white border-slate-400 rounded-[12px] flex flex-col">
-          <div className="">
-            <Formik
-              initialValues={{ file: null, text: "" }}
-              onSubmit={(values) => {
-                console.log(values);
-              }}
-            >
+          <Formik
+            initialValues={{ file: null, text: "" }}
+            onSubmit={async (values) => {
+              try {
+                if (values.file) {
+                  const uploadedImageUrl = await uploadImageToCloudinary(values.file);
+                  console.log("Uploaded Image URL:", uploadedImageUrl);
+                  setImagePreview(uploadedImageUrl);
+                  console.log("ini upload image", uploadedImageUrl)
+                }
+              } catch (error) {
+                console.error("Image upload failed:", error);
+              }
+            }}
+          >
+            {({ setFieldValue }) => (
               <Form>
                 <div className="flex flex-col gap-2 mt-4">
                   <label
                     htmlFor="fileupload"
-                    className="relative w-full h-36 text-primary-white font-semibold"
+                    className="relative w-full h-24 sm:h-32 md:h-36 text-primary-white font-semibold"
                   >
                     <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-70 rounded-[12px] bg-dark">
-                      <h1 className="text-white text-center">
+                      <h1 className="text-white text-center text-sm sm:text-base md:text-lg">
                         Upload event cover
                       </h1>
                     </div>
                     <Image
-                      className="w-full h-36 object-cover rounded-[12px]"
-                      src={createbg}
+                      className="w-full h-24 sm:h-32 md:h-36 object-cover rounded-[12px]"
+                      src={imagePreview || createbg}
                       alt="background-img"
                       width={100}
                       height={100}
@@ -122,27 +128,37 @@ const Page = () => {
                       hidden
                       id="fileupload"
                       label=""
-                      name="event name"
+                      name="file"
                       type="file"
                       placeholder="Event name"
+                       onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        const file = event.currentTarget.files?.[0];
+                        if (file) {
+                          setFieldValue("file", file);
+                        }
+                      }}
                     />
                   </label>
                 </div>
+                <button type="submit" className="mt-4 p-2 bg-blue-500 text-white rounded">
+                  Submit
+                </button>
               </Form>
-            </Formik>
-          </div>
+            )}
+          </Formik>
         </div>
       </div>
 
-      <div className="flex flex-col justify-between items-start bg-primary-white border border-slate-400 p-5 mt-4 rounded-[12px] mx-8 hover:border-primary-default cursor-pointer">
+      {/* Event Title and Description */}
+      <div className="flex flex-col justify-between items-start bg-primary-white border border-slate-400 p-3 sm:p-4 md:p-5 mt-4 rounded-[12px] mx-2 sm:mx-4 md:mx-6 lg:mx-8 hover:border-primary-default cursor-pointer">
         <div className="w-full flex flex-row justify-between">
           <div className="w-full">
-            <h1 className="text-2xl font-semibold">Event Title</h1>
-            <p className="text-gray-700">
+            <h1 className="text-xl sm:text-2xl font-semibold">Event Title</h1>
+            <p className="text-gray-700 text-sm sm:text-base">
               A short and sweet sentence about your event.
             </p>
           </div>
-          <div>
+          <div className="">
             <Image src={plus} alt="icon-plus-event" width={32} height={32} />
           </div>
         </div>
@@ -151,7 +167,6 @@ const Page = () => {
             initialValues={{ file: null, text: "" }}
             onSubmit={(values) => {
               console.log(values);
-              // Handle form submission logic here
             }}
           >
             {({ setFieldValue }) => (
@@ -164,7 +179,7 @@ const Page = () => {
                     placeholder="Event name"
                   />
                   <textarea
-                    className="border rounded-[4px] p-2 border-slate-400"
+                    className="border rounded-[4px] p-2 border-slate-400 text-sm sm:text-base"
                     name="event description"
                     placeholder="Event description"
                   />
@@ -175,14 +190,12 @@ const Page = () => {
         </div>
       </div>
 
-      {/* Select event category */}
-
-
-      <div className="flex flex-col justify-between items-start bg-primary-white border border-slate-400 p-5 mt-4 rounded-[12px] mx-8 hover:border-primary-default cursor-pointer">
+      {/* Event Category */}
+      <div className="flex flex-col justify-between items-start bg-primary-white border border-slate-400 p-3 sm:p-4 md:p-5 mt-4 rounded-[12px] mx-2 sm:mx-4 md:mx-6 lg:mx-8 hover:border-primary-default cursor-pointer">
         <div className="w-full flex flex-row justify-between">
           <div className="w-full">
-            <h1 className="text-2xl font-semibold">Event Category</h1>
-            <p className="text-gray-700">
+            <h1 className="text-xl sm:text-2xl font-semibold">Event Category</h1>
+            <p className="text-gray-700 text-sm sm:text-base">
               Choose event category for your event
             </p>
           </div>
@@ -191,9 +204,9 @@ const Page = () => {
           </div>
         </div>
         <div className="w-full bg-primary-white border-slate-400 rounded-[8px] flex flex-col mt-2">
-          <Select >
-            <SelectTrigger className="w-full bg-primary-white border-slate-300 rounded-[4px] hover:border-primary-default">
-              <SelectValue placeholder="Select category"/>
+          <Select>
+            <SelectTrigger className="w-full bg-primary-white border-slate-300 rounded-[4px] hover:border-primary-default text-sm sm:text-base">
+              <SelectValue placeholder="Select category" />
             </SelectTrigger>
             <SelectContent className="bg-primary-white rounded-[8px] shadow-md border-slate-300 w-full">
               <SelectGroup className="w-full">
@@ -206,25 +219,23 @@ const Page = () => {
               </SelectGroup>
             </SelectContent>
           </Select>
-          
         </div>
       </div>
 
-      {/* create event location container */}
-
-      <div className="flex flex-col justify-between items-start bg-primary-white border border-slate-400 p-5 mt-4 rounded-[12px] mx-8 hover:border-primary-default cursor-pointer">
+      {/* Date and Location */}
+      <div className="flex flex-col justify-between items-start bg-primary-white border border-slate-400 p-3 sm:p-4 md:p-5 mt-4 rounded-[12px] mx-2 sm:mx-4 md:mx-6 lg:mx-8 hover:border-primary-default cursor-pointer">
         <div className="w-full flex flex-row justify-between">
           <div className="w-full">
-            <h1 className="text-2xl font-semibold">Date and Location</h1>
-            <p className="text-gray-700">
+            <h1 className="text-xl sm:text-2xl font-semibold">Date and Location</h1>
+            <p className="text-gray-700 text-sm sm:text-base">
               Select the date for your event and specify the location.
             </p>
           </div>
-          <div onClick={handleToggle}>
+          <div>
             <Image src={plus} alt="icon-plus-event" width={32} height={32} />
           </div>
         </div>
-        <div className="w-full bg-primary-white border-slate-400 rounded-[12px] flex flex-col gap-2">
+        <div className="w-full bg-primary-white border-slate-400 rounded-[12px] flex flex-col">
           <Formik
             initialValues={{ file: null, text: "" }}
             onSubmit={(values) => {
@@ -233,58 +244,65 @@ const Page = () => {
           >
             {({ setFieldValue }) => (
               <Form>
-                <div className="flex flex-row gap-2 mt-4">
-                  <div className="border w-full border-slate-400 rounded-[4px] hover:border-primary-default">
-                    <DatePicker date={date} setDate={setDate} />
-                  </div>
-                  <div className="border w-full border-slate-400 rounded-[4px] hover:border-primary-default gap-2 px-4 flex flex-row">
-                    <Image
-                      src={timeicon}
-                      alt="time-icon"
-                      width={24}
-                      height={24}
+                <div className="flex flex-col gap-2 mt-4">
+                  <div className="flex flex-col w-full">
+                    <InputField
+                      label=""
+                      name="Event Date"
+                      type="date"
+                      placeholder="Event Date"
                     />
-                    <Field
-                      as="select"
-                      value={startTime}
-                      onChange={(e: any) =>
-                        handleStartTimeChange(e.target.value)
-                      }
-                      className="w-full h-full"
-                    >
-                      <option value="">Select Start Time</option>
-                      {times.map((timeOption, index) => (
-                        <option key={index} value={timeOption}>
-                          {timeOption}
-                        </option>
-                      ))}
-                    </Field>
                   </div>
-                  <div className="border w-full border-slate-400 rounded-[4px] hover:border-primary-default gap-2 flex flex-row px-4">
-                    <Image
-                      src={timeicon}
-                      alt="time-icon"
-                      width={24}
-                      height={24}
-                    />
-                    <Field
-                      as="select"
-                      value={endTime}
-                      onChange={(e: any) => handleEndTimeChange(e.target.value)}
-                      className="w-full h-full"
-                    >
-                      <option value="">Select End Time</option>
-                      {times.map((timeOption, index) => (
-                        <option key={index} value={timeOption}>
-                          {timeOption}
-                        </option>
-                      ))}
-                    </Field>
+                  <div className="w-full flex flex-col sm:flex-row gap-4">
+                    <div className="w-full flex flex-col">
+                      <Select
+                        onValueChange={handleStartTimeChange}
+                      >
+                        <SelectTrigger className="w-full bg-primary-white border-slate-300 rounded-[4px] hover:border-primary-default text-sm sm:text-base">
+                          <div className="flex flex-row justify-between items-center">
+                            <Image src={timeicon} alt="timeicon" />
+                            <SelectValue placeholder="Start Time" />
+                          </div>
+                        </SelectTrigger>
+                        <SelectContent className="bg-primary-white rounded-[8px] shadow-md border-slate-300 w-full">
+                          <SelectGroup className="w-full">
+                            <SelectLabel>By Start Time</SelectLabel>
+                            {times.map((time, index) => (
+                              <SelectItem key={index} value={time}>
+                                {time}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="w-full flex flex-col">
+                      <Select
+                        onValueChange={handleEndTimeChange}
+                      >
+                        <SelectTrigger className="w-full bg-primary-white border-slate-300 rounded-[4px] hover:border-primary-default text-sm sm:text-base">
+                          <div className="flex flex-row justify-between items-center">
+                            <Image src={timeicon} alt="timeicon" />
+                            <SelectValue placeholder="End Time" />
+                          </div>
+                        </SelectTrigger>
+                        <SelectContent className="bg-primary-white rounded-[8px] shadow-md border-slate-300 w-full">
+                          <SelectGroup className="w-full">
+                            <SelectLabel>By End Time</SelectLabel>
+                            {times.map((time, index) => (
+                              <SelectItem key={index} value={time}>
+                                {time}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
                 </div>
                 <InputField
                   label=""
-                  name="Event location"
+                  name="location"
                   type="text"
                   placeholder="Location"
                 />
@@ -294,50 +312,69 @@ const Page = () => {
         </div>
       </div>
 
-      {/* Additional information */}
-
-      <div className="flex flex-col justify-between items-start bg-primary-white border border-slate-400 p-5 mt-4 rounded-[12px] mx-8 hover:border-primary-default cursor-pointer">
+      {/* Privacy and Audience */}
+      <div className="flex flex-col justify-between items-start bg-primary-white border border-slate-400 p-3 sm:p-4 md:p-5 mt-4 rounded-[12px] mx-2 sm:mx-4 md:mx-6 lg:mx-8 hover:border-primary-default cursor-pointer">
         <div className="w-full flex flex-row justify-between">
           <div className="w-full">
-            <h1 className="text-2xl font-semibold">Additional Informations</h1>
-            <p className="text-gray-700">
-              Please add audiance information and the attention information{" "}
+            <h1 className="text-xl sm:text-2xl font-semibold">Privacy and Audience</h1>
+            <p className="text-gray-700 text-sm sm:text-base">
+              Specify your privacy settings and audience.
             </p>
           </div>
-          <div onClick={handleToggle}>
+          <div>
             <Image src={plus} alt="icon-plus-event" width={32} height={32} />
           </div>
         </div>
-        <div className="w-full bg-primary-white border-slate-400 rounded-[12px] flex flex-col gap-2">
+        <div className="w-full bg-primary-white border-slate-400 rounded-[12px] flex flex-col mt-2">
           <Formik
-            initialValues={{ file: null, text: "" }}
+            initialValues={{ privacy: "public", audience: "" }}
             onSubmit={(values) => {
               console.log(values);
             }}
           >
             {({ setFieldValue }) => (
-              <Form className="flex flex-row gap-2 mt-2">
-                <InputField
-                  label=""
-                  name="Audiance Information"
-                  type="text"
-                  placeholder="Audiance Information"
-                />
-                <InputField
-                  label=""
-                  name="Attention Information"
-                  type="text"
-                  placeholder="Attention Information"
-                />
+              <Form>
+                <div className="flex flex-col gap-2 mt-4">
+                  <div className="flex flex-col w-full">
+                    <Select
+                      onValueChange={(value) => setFieldValue("privacy", value)}
+                    >
+                      <SelectTrigger className="w-full bg-primary-white border-slate-300 rounded-[4px] hover:border-primary-default text-sm sm:text-base">
+                        <SelectValue placeholder="Select Privacy" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-primary-white rounded-[8px] shadow-md border-slate-300 w-full">
+                        <SelectGroup className="w-full">
+                          <SelectLabel>By Privacy</SelectLabel>
+                          <SelectItem value="public">Public</SelectItem>
+                          <SelectItem value="private">Private</SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="flex flex-col w-full mt-2">
+                    <Select
+                      onValueChange={(value) => setFieldValue("audience", value)}
+                    >
+                      <SelectTrigger className="w-full bg-primary-white border-slate-300 rounded-[4px] hover:border-primary-default text-sm sm:text-base">
+                        <SelectValue placeholder="Select Audience" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-primary-white rounded-[8px] shadow-md border-slate-300 w-full">
+                        <SelectGroup className="w-full">
+                          <SelectLabel>By Audience</SelectLabel>
+                          {audience.map((aud, index) => (
+                            <SelectItem key={index} value={aud}>
+                              {aud}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
               </Form>
             )}
           </Formik>
         </div>
-      </div>
-      <div className="w-full px-8">
-        <button className="w-full bg-primary-default text-primary-white p-2 rounded-[8px] hover:bg-primary-light">
-          Submit
-        </button>
       </div>
     </div>
   );
