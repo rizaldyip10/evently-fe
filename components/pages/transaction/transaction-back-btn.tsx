@@ -19,16 +19,19 @@ interface TransactionBackBtnProps {
 
 const TransactionBackBtn: React.FC<TransactionBackBtnProps> = ({ href, title, desc }) => {
     const router = useRouter()
-    const trxId = sessionStorage.getItem("activeTrx")
+    const [trxId, setTrxId] = useState<string | null>(null);
     const [showBackConfirmation, setShowBackConfirmation] = useState(false);
     const { data: session } = useSession()
     const user = session?.user as UserSessionProps
 
-    if (!trxId) {
-        return redirect(USER_DEFAULT_REDIRECT)
-    }
-
     useEffect(() => {
+        const storedTrxId = sessionStorage.getItem("activeTrx");
+        if (!storedTrxId) {
+            router.push(USER_DEFAULT_REDIRECT);
+            return;
+        }
+        setTrxId(storedTrxId);
+
         const handlePopState = (event: PopStateEvent) => {
             event.preventDefault();
             setShowBackConfirmation(true);
@@ -40,9 +43,11 @@ const TransactionBackBtn: React.FC<TransactionBackBtnProps> = ({ href, title, de
         return () => {
             window.removeEventListener('popstate', handlePopState);
         };
-    }, []);
+    }, [router]);
 
     const cancelTransaction = async () => {
+        if (!trxId) return;
+
         const loadingToast = toast.loading("Cancelling transaction...")
         try {
             await axios.delete(`transactions/user/${trxId}`, {
@@ -70,6 +75,10 @@ const TransactionBackBtn: React.FC<TransactionBackBtnProps> = ({ href, title, de
         setShowBackConfirmation(false);
         window.history.pushState(null, '', window.location.pathname);
     };
+
+    if (!trxId) {
+        return redirect(USER_DEFAULT_REDIRECT)
+    }
 
     return (
         <>
