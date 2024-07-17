@@ -9,7 +9,7 @@ const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await auth()
   const user = session?.user as UserSessionProps
 
-  if (user.role != "ORGANIZER") {
+  if (user && user.role != "ROLE_ORGANIZER") {
     return (
       <div className='w-full h-screen flex justify-center items-center text-center flex-col gap-5'>
         <h1 className='text-5xl'>403 | FORBIDDEN</h1>
