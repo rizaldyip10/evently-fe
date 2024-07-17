@@ -59,7 +59,7 @@ const AdminHomePage = () => {
     <div className="flex flex-col items-center px-10 py-5 bg-blue-50 min-h-screen">
       <div className="w-full flex flex-row justify-between">
         <div className="flex flex-col gap-4">
-          <h1 className="font-semibold text-3xl">Welcome back, {profile.name}</h1>
+          <h1 className="font-semibold text-3xl">Welcome back, {profile?.name}</h1>
           <p className="text-base text-gray-700">Lorem</p>
         </div>
         <div>
