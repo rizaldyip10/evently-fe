@@ -35,6 +35,7 @@ import { TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import Filters from "@/components/pages/admin/filter";
 import useUserProfile from "@/hooks/useUserProfile";
+import { useRouter } from "next/navigation";
 
 const TableHeads = [
   "Event name",
@@ -74,6 +75,7 @@ const AdminHomePage = () => {
   const [filter, setFilter] = useState("All");
   const [filteredTableBody, setFilteredTableBody] = useState(TableBody);
   const { profile } = useUserProfile()
+  const router = useRouter()
 
   const handleFilter = (category: string) => {
     setFilter(category);
@@ -99,7 +101,12 @@ const AdminHomePage = () => {
           <p className="text-base text-gray-700">Lorem</p>
         </div>
         <div>
-          <Button className="bg-primary-default rounded-[4px] text-primary-white hover:bg-primary-light">Create Event</Button>  
+          <Button 
+            className="bg-primary-default rounded-[4px] text-primary-white hover:bg-primary-light"
+            onClick={() => router.push('/admin/createevent')}
+          >
+              Create Event
+            </Button>  
         </div>
       </div>
 
