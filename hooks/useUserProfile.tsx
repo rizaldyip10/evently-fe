@@ -1,14 +1,35 @@
 "use client"
 
+import axios from '@/utils/axios';
 import { UserProfileType } from '@/constants/type/user-profile';
 import { useQuery } from '@tanstack/react-query';
-import axios from '@/utils/axios';
 import { UserSessionProps } from '@/constants/type/user-session-props';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const useUserProfile = () => {
-    const { data: session } = useSession()
-    const user = session?.user as UserSessionProps
+    const router = useRouter();
+    const { data: session, status } = useSession();
+    const user = session?.user as UserSessionProps;
+
+    useEffect(() => {
+        const checkTokenExpiration = () => {
+            if (session?.expires) {
+                const expirationTime = new Date(session.expires).getTime();
+                const currentTime = new Date().getTime();
+                
+                if (currentTime >= expirationTime) {
+                    signOut({ callbackUrl: '/' });
+                }
+            }
+        };
+
+        checkTokenExpiration();
+        const intervalId = setInterval(checkTokenExpiration, 60000);
+
+        return () => clearInterval(intervalId);
+    }, [session, router]);
     const {
         data,
         isLoading,
