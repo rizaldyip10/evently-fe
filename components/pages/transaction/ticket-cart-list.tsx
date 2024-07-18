@@ -24,7 +24,7 @@ const TicketCartList: React.FC<TicketCartListProps> = ({ ticketCart }) => {
                 </thead>
                 <tbody>
                     {
-                        filteredTicketCart.map((item, i) => (
+                        filteredTicketCart && filteredTicketCart.map((item, i) => (
                             <tr key={i}>
                                 <td className='px-4 py-2 text-center'>{item.amount}</td>
                                 <td className='px-4 py-2 text-center'>{item.name}</td>

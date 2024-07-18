@@ -46,7 +46,7 @@ const TicketList: React.FC<TicketListProps> = ({ eventSlug }) => {
                     error && <div>Error fetching ticket list</div>
                 }
                 {
-                    tickets?.map((ticket, i) => (
+                    tickets && tickets?.map((ticket, i) => (
                         <TicketTypeCard 
                             ticket={ticket}
                             ticketCart={ticketCart[i]} 

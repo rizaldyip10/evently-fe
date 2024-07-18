@@ -27,7 +27,7 @@ const UserReview: React.FC<UserReviewProps> = ({ eventSlug }) => {
         error && <div>Error fetching user review</div>
       }
       {
-        reviews?.map((review, i) => (
+        reviews && reviews?.map((review, i) => (
           <ReviewCard key={i} eventSlug={eventSlug} review={review} />
         ))
       }
