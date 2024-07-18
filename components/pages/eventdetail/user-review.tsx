@@ -18,6 +18,8 @@ const UserReview: React.FC<UserReviewProps> = ({ eventSlug }) => {
     fetchNextPage,
     isFetchingNextPage
   } = UseEventReviews(eventSlug);
+  console.log(reviews);
+  
   return (
     <div className='w-full gap-5 mt-8 flex flex-col'>
       {
@@ -27,7 +29,7 @@ const UserReview: React.FC<UserReviewProps> = ({ eventSlug }) => {
         error && <div>Error fetching user review</div>
       }
       {
-        reviews && reviews?.map((review, i) => (
+        reviews && reviews.map((review, i) => (
           <ReviewCard key={i} eventSlug={eventSlug} review={review} />
         ))
       }
