@@ -10,6 +10,8 @@ import { EventType } from '@/constants/type/event-list'
 const EventDetailPage = async ({ params }: { params: { eventSlug: string } }) => {
     const { data } = await axios.get(`/event/${params.eventSlug}`);
     const eventData: EventType = data.data;
+    console.log(eventData);
+    
     return (
         <div className='w-full flex flex-col items-center p-5 mb-20'>
             <div className='flex flex-col w-full md:max-w-6xl gap-8 md:gap-11'>
