@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/select";
 import DashboardCard from "@/components/pages/admin/dashboard-card";
 import { Badge } from "@/components/ui/badge";
-
 import {
   Sheet,
   SheetClose,
@@ -34,8 +33,8 @@ import EventDetailContent from "@/components/pages/admin/eventdetails-sheets";
 import { Tabs, TabsContent, TabsList } from "@radix-ui/react-tabs";
 import { TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
-
-
+import Filters from "@/components/pages/admin/filter";
+import useUserProfile from "@/hooks/useUserProfile";
 
 const TableHeads = [
   "Event name",
@@ -74,6 +73,7 @@ const TableBody = [
 const AdminHomePage = () => {
   const [filter, setFilter] = useState("All");
   const [filteredTableBody, setFilteredTableBody] = useState(TableBody);
+  const { profile } = useUserProfile()
 
   const handleFilter = (category: string) => {
     setFilter(category);
@@ -92,10 +92,11 @@ const AdminHomePage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center py-5 bg-blue-50 h-screen w-full px-10">
+    <div className="flex flex-col items-center px-10 py-5 bg-blue-50 min-h-screen">
       <div className="w-full flex flex-row justify-between">
         <div className="flex flex-col gap-4">
-          <h1 className="font-semibold text-3xl">Welcome back, Purwa Widodo</h1>
+          <h1 className="font-semibold text-3xl">Welcome back, {profile?.name}</h1>
+          <p className="text-base text-gray-700">Lorem</p>
         </div>
         <div>
           <Button className="bg-primary-default rounded-[4px] text-primary-white hover:bg-primary-light">Create Event</Button>  

@@ -2,13 +2,19 @@ import { Calendar, Facebook, Instagram, Link as LinkIcon, MapPin, Star, Twitter 
 import React from 'react'
 import EventPrice from './event-price'
 import Link from 'next/link'
+import { EventType } from '@/constants/type/event-list'
+import { DateFormater } from '@/utils/date-formatter'
 
-const EventDesc = () => {
+interface EventDescProps {
+    data: EventType;
+}
+
+const EventDesc: React.FC<EventDescProps> = ({ data }) => {
     return (
         <div className='w-full flex flex-col gap-4 font-general-sans'>
             <div className='w-full flex items-start justify-between'>
                 <div className='flex flex-col gap-4 max-w-[650px]'>
-                    <h1 className='text-3xl font-bold'>Drive In Senja: Back to The Future</h1>
+                    <h1 className='text-3xl font-bold'>{ data.name }</h1>
                     <div className='flex flex-col-reverse md:flex-row gap-4 md:gap-10 items-start md:items-center my-2'>
                         <div className='flex gap-2 items-center'>
                             <Star className='text-[#e7e55c]' />
@@ -34,22 +40,19 @@ const EventDesc = () => {
                     </div>
                     <div className='w-full flex gap-2 items-center'>
                         <MapPin className='w-4 h-4 font-bold' />
-                        <p className='font-bold'>Parkiran Utama Mall @ Alam Sutra</p>
+                        <p className='font-bold'>{ data.location }</p>
                     </div>
                     <div className='w-full flex gap-2 items-center'>
                         <Calendar className='w-4 h-4 font-bold' />
-                        <p className='font-bold'>September 22 2023 | 20.00 - 21.56</p>
+                        <p className='font-bold'>{ DateFormater(data.date) } | {data.startTime} - {data.endTime}</p>
                     </div>
-                    <p className='text-lg font-general-sans'>
-                        Marty travels back in time using an eccentric scientist&apos;s time machine. However, he must make his high-school-aged parents fall in love in order to return to the present.
-                    </p>
                 </div>
-                <EventPrice />
+                <EventPrice tickets={data.tickets} eventSlug={data.slug} />
             </div>
             <div className='w-full flex flex-col gap-4 mt-5'>
                 <h1 className='text-2xl font-semibold font-general-sans'>Description</h1>
                 <p className='text-base font-normal font-general-sans'>
-                    Drive-In Senja memberikan retro drive-in experience yang dikemas secara modern. Penggunaan transmisi radio kit, mengintegrasikan suara film ke dalam radio mobil, ditambah proyektor resolusi tinggi yang menyediakan pengalaman visual terbaik. Acara ini merupakan sarana yang aman untuk menghabiskan waktu bersama keluarga, pasangan, maupun komunitas
+                    {data.description}
                 </p>
             </div>
         </div>

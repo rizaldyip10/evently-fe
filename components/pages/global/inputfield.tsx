@@ -1,7 +1,6 @@
 import { Field, useField } from 'formik';
 import React from 'react'
 import { Label } from '@/components/ui/label';
-
 import { useFormik } from 'formik';
 
 
@@ -16,9 +15,9 @@ interface inputFieldProps{
 }
 
 
-const InputField:React.FC<inputFieldProps> = ({label, ...props}) => {
+const InputField: React.FC<inputFieldProps> = ({ label, ...props }) => {
 
-    const [, meta] = useField(props);
+  const [, meta] = useField(props);
 
   return (
     <div className="grid w-full items-center gap-1.5 rounded-md">

@@ -1,14 +1,28 @@
+import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { UsedVoucherType } from '@/constants/type/used-voucher-type'
 import { TicketPercent } from 'lucide-react'
+import useActiveTrxVouchers from '@/hooks/useActiveTrxVouchers'
 import React from 'react'
 
-const promos = [
-    {name: "IDR 15.000 Discount", discount: 15000},
-    {name: "25% Discount", discount: 0.15}
-]
+interface VoucherSelectProps {
+    eventSlug: string
+    handleSelect: (voucher: UsedVoucherType) => void
+}
 
-const VoucherSelect = () => {
-    
+const VoucherSelect: React.FC<VoucherSelectProps> = ({ eventSlug, handleSelect }) => {
+    const {
+        vouchers,
+        isLoading,
+        error,
+        hasNextPage,
+        isFetchingNextPage,
+        fetchNextPage
+    } = useActiveTrxVouchers(eventSlug)
+
+    if (isLoading) return <div>Loading...</div>
+    if (error) return <div>Error fetching voucher list</div>
+
     return (
         <div className='w-full flex flex-col border border-light rounded-[4px] p-3 bg-primary-white gap-4'>
             <div className='w-full flex items-center gap-2'>
@@ -17,15 +31,31 @@ const VoucherSelect = () => {
             </div>
             <div className='w-full flex flex-col gap-2'>
                 {
-                    promos.map((promo, i) => (
+                    vouchers.map((voucher, i) => (
                         <label key={i} className='w-full flex p-3 border border-light rounded-[4px] gap-1 data-[state=checked]:bg-primary-lightest items-center justify-between'>
                             <div className='flex flex-col gap-1'>
                                 <h1 className='text-sm font-bold text-primary-default'>Discount</h1>
-                                <p className='font-bold'>{ promo.name }</p>
+                                <p className='font-bold'>{voucher.name}</p>
                             </div>
-                            <Input type='checkbox' value={promo.discount} className='w-4 h-4' />
+                            <Input 
+                                type='checkbox' 
+                                className='w-4 h-4' 
+                                onChange={(e) => handleSelect({ 
+                                    name: voucher.name, 
+                                    discount: e.target.checked ? Number(voucher.discount) : 0 
+                                })}
+                            />
                         </label>
                     ))
+                }
+                {
+                    hasNextPage &&
+                        <Button 
+                            className='bg-primary-white border border-primary-default text-primary-default rounded-[4px]'
+                            onClick={() => fetchNextPage()}
+                        >
+                            See more
+                        </Button>
                 }
             </div>
         </div>

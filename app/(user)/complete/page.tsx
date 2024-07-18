@@ -2,8 +2,16 @@ import Image from 'next/image'
 import React from 'react'
 import completeImg from '@/assets/image/pablita-915 1.png'
 import { Button } from '@/components/ui/button'
+import { auth } from '@/auth'
+import { USER_DEFAULT_REDIRECT } from '@/constants/routes/web-routes'
+import { redirect } from 'next/navigation'
 
-const CompletePaymentPage = () => {
+const CompletePaymentPage = async () => {
+  const session = await auth()
+  
+  if (!session) {
+    return redirect(USER_DEFAULT_REDIRECT)
+  }
   return (
     <div className='w-full flex flex-col items-center justify-center h-screen gap-10'>
         <div className='w-max flex flex-col'>

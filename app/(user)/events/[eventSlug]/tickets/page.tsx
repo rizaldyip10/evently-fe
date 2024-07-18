@@ -1,14 +1,19 @@
+import { auth } from '@/auth'
+import { Separator } from '@/components/ui/separator'
+import { USER_DEFAULT_REDIRECT } from '@/constants/routes/web-routes'
+import { redirect } from 'next/navigation'
 import EventDetailSection from '@/components/pages/transaction/event-detail'
 import TicketList from '@/components/pages/transaction/ticket-list'
 import TransactionBackBtn from '@/components/pages/transaction/transaction-back-btn'
-import { Separator } from '@/components/ui/separator'
-import { ArrowLeft } from 'lucide-react'
-import Link from 'next/link'
 import React from 'react'
 
 
-const TicketPage = ({ params }: { params: { eventSlug: string } }) => {
-    const slugToEventName = params.eventSlug.replace("-", " ")
+const TicketPage = async ({ params }: { params: { eventSlug: string } }) => {
+    const session = await auth()
+
+    if (!session) {
+        return redirect(USER_DEFAULT_REDIRECT)
+    }
     return (
         <div className='w-full flex flex-col items-center p-5 mb-20 mt-10'>
             <div className='flex flex-col w-full md:max-w-7xl gap-11'>
@@ -18,7 +23,7 @@ const TicketPage = ({ params }: { params: { eventSlug: string } }) => {
                 </div>
                 <Separator className='bg-second-lightest' />
                 <div className='w-full'>
-                    <TicketList />
+                    <TicketList eventSlug={params.eventSlug} />
                 </div>
             </div>
         </div>
