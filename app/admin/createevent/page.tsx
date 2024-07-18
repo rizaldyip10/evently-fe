@@ -140,9 +140,7 @@ const Page = () => {
                     />
                   </label>
                 </div>
-                <button type="submit" className="mt-4 p-2 bg-blue-500 text-white rounded">
-                  Submit
-                </button>
+                
               </Form>
             )}
           </Formik>
@@ -375,7 +373,15 @@ const Page = () => {
             )}
           </Formik>
         </div>
+        
       </div>
+      <div className="w-full px-10">
+        <button type="submit" className="mt-4 p-2 bg-blue-500 text-white rounded bg-primary-default w-full text-primary-white font-semibold px-10">
+                  Submit
+      </button>
+
+      </div>
+      
     </div>
   );
 };
