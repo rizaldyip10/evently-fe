@@ -27,7 +27,9 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ eventSlug, review }) => {
             <div className='flex flex-col gap-3 w-[80%] md:w-[98%]'>
                 <div className='w-full flex items-center justify-between'>
                     <h1 className='font-bold font-general-sans text-xl'>{review.user.name}</h1>
-                    <ReviewMenu reviewId={review.id} setEditState={setEditState} userEmail={review.user.email} />
+                    {
+                      review.user.email &&  <ReviewMenu reviewId={review.id} setEditState={setEditState} userEmail={review?.user?.email} /> 
+                    }
                 </div>
                 <div className='flex gap-2 items-center'>
                     <Star className='text-[#e7e55c] w-5 h-5' />
